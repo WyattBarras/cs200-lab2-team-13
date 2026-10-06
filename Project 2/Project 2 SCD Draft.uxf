@@ -1,0 +1,63 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>Text</id><coordinates><x>230</x><y>240</y><w>120</w><h>80</h></coordinates><panel_attributes>// Boundary Element
+     Terminal Menu
+	  
+_umletcode=
+// Boundary Symbol
+drawCircle(75, 50, 20)
+drawLine(30, 50, 55, 50)
+drawLine(30, 30, 30, 70)	 
+	</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>870</x><y>180</y><w>110</w><h>80</h></coordinates><panel_attributes>// Entity Element
+ChocAn Database
+	      
+_umletcode=
+// Entity Symbol
+drawCircle(55, 50, 20)
+drawLine(35, 70, 75, 70)
+	</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>520</x><y>40</y><w>80</w><h>80</h></coordinates><panel_attributes>// Boundary Element
+	  Boundary
+	  
+_umletcode=
+// Boundary Symbol
+drawCircle(50, 50, 20)
+drawLine(20, 50, 30, 50)
+drawLine(20, 30, 20, 70)	 
+	</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>380</x><y>280</y><w>110</w><h>80</h></coordinates><panel_attributes>// Control Element
+Provider Terminal
+	     
+_umletcode=
+// Control Symbol
+drawCircle(55, 50, 20)
+drawLine(49, 31, 59, 21)
+drawLine(49, 31, 59, 41)
+	</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>310</y><w>100</w><h>60</h></coordinates><panel_attributes>// Class Element
+Provider
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>230</x><y>330</y><w>130</w><h>80</h></coordinates><panel_attributes>// Boundary Element
+Terminal Card Reader
+customelement=
+// Boundary Symbol
+drawCircle(70, 50, 20)
+drawLine(40, 50, 50, 50)
+drawLine(40, 30, 40, 70)
+	</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>170</x><y>290</y><w>90</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;40;70;10</additional_attributes></element><element><id>Relation</id><coordinates><x>170</x><y>340</y><w>90</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;70;40</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>290</y><w>80</w><h>50</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;60;30</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>340</y><w>80</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;40;60;10</additional_attributes></element><element><id>Text</id><coordinates><x>570</x><y>280</y><w>80</w><h>80</h></coordinates><panel_attributes>// Control Element
+	     Control
+customelement=
+// Control Symbol
+drawCircle(50, 50, 20)
+drawLine(44, 31, 54, 21)
+drawLine(44, 31, 54, 41)
+	</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>840</x><y>400</y><w>170</w><h>80</h></coordinates><panel_attributes>// Entity Element
+Acme Accounting Database
+customelement=
+// Entity Symbol
+drawCircle(85, 50, 20)
+drawLine(65, 70, 105, 70)
+	</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>720</x><y>40</y><w>80</w><h>80</h></coordinates><panel_attributes>// Control Element
+	     Control
+customelement=
+// Control Symbol
+drawCircle(50, 50, 20)
+drawLine(44, 31, 54, 21)
+drawLine(44, 31, 54, 41)
+	</panel_attributes><additional_attributes></additional_attributes></element></diagram>

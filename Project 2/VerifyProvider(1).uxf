@@ -1,0 +1,15 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLObject</id><coordinates><x>370</x><y>70</y><w>410</w><h>520</h></coordinates><panel_attributes>Verify Provider
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLSpecialState</id><coordinates><x>560</x><y>120</y><w>20</w><h>20</h></coordinates><panel_attributes>type=initial</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>120</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=&lt;-
+</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>520</x><y>180</y><w>100</w><h>40</h></coordinates><panel_attributes>Provider inputs 
+provider number
+bg=red</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLSpecialState</id><coordinates><x>520</x><y>260</y><w>100</w><h>90</h></coordinates><panel_attributes>Is the 
+provider 
+number
+ valid?
+bg=green
+type=decision</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>210</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>310</y><w>100</w><h>90</h></coordinates><panel_attributes>lt=&lt;-
+[Yes]</panel_attributes><additional_attributes>10;70;80;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>420</x><y>380</y><w>100</w><h>40</h></coordinates><panel_attributes>Access Granted
+bg=red</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLSpecialState</id><coordinates><x>460</x><y>470</y><w>20</w><h>20</h></coordinates><panel_attributes>type=final</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>630</x><y>380</y><w>100</w><h>40</h></coordinates><panel_attributes>Access is Denied
+bg=red</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>310</y><w>110</w><h>90</h></coordinates><panel_attributes>lt=&lt;-
+[No]
+</panel_attributes><additional_attributes>90;70;10;10</additional_attributes></element><element><id>UMLSpecialState</id><coordinates><x>670</x><y>470</y><w>20</w><h>20</h></coordinates><panel_attributes>type=final</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>410</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>670</x><y>410</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element></diagram>

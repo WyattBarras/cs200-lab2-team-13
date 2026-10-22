@@ -1,0 +1,94 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>760</x><y>960</y><w>110</w><h>80</h></coordinates><panel_attributes>// Class Element
+&lt;&lt;actor&gt;&gt; Provider
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>920</y><w>140</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>120;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>920</y><w>150</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;40;130;10</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>830</y><w>140</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>120;10;10;40</additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>830</y><w>150</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;130;40</additional_attributes></element><element><id>UMLClass</id><coordinates><x>260</x><y>720</y><w>160</w><h>70</h></coordinates><panel_attributes>&lt;&lt;actor&gt;&gt; ChocAn Manager
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>680</y><w>110</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;40;90;10</additional_attributes></element><element><id>Relation</id><coordinates><x>410</x><y>560</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>180</y><w>320</w><h>200</h></coordinates><panel_attributes>/Client/
+--
+-string Name
+-int Number
+-string StreetAddress
+-string City
+-string State
+-int ZIPCode
+-int AccountBalance
+--
++void addClient()
++void removeClient()
++void updateClientRecords()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>330</x><y>490</y><w>180</w><h>80</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt; ChocAnTerminal
+--
++bool verifyOperator(int)
++bool verifyManager(int)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>620</y><w>220</w><h>70</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt; ChocAn Terminal Menu
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>670</x><y>460</y><w>300</w><h>170</h></coordinates><panel_attributes>&lt;&lt;entity&gt;&gt; ChocAn Data Center
+--
+-Member[] MemberList
+-Provider[] ProviderList
+-FILE[] ServiceRecords
+-FILE EFTData
+--
++FILE createManagerAccountingReport()
++FILE createMemberAccountingReport(Member)
++FILE createProviderAccountingReport(Provider)
++void processWeeklyPayments()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>710</x><y>730</y><w>220</w><h>110</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt; ProviderTerminal
+--
++string verifyMember(int)
++bool verifyProvider(int)
++void recordTransaction()
++void writeServiceRecords()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>600</x><y>870</y><w>220</w><h>60</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt; Provider Terminal Menu
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>830</x><y>870</y><w>220</w><h>60</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt; Terminal Card Reader
+--
++int scanMemberCard()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>830</x><y>0</y><w>300</w><h>110</h></coordinates><panel_attributes>*Member*
+--
++int AccountBalance
++bool MemberStatus
+--
++void addClient(string, int, string, string, string, int)
++void removeClient(Member)
++void updateClientRecords(Member, *)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>510</x><y>0</y><w>300</w><h>110</h></coordinates><panel_attributes>*Provider*
+--
++int BillAmount
+--
++void addClient(string, int, string. string, string, int)
++void removeClient(Provider)
++void updateClientRecords(Provider, *)
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1090</x><y>250</y><w>230</w><h>100</h></coordinates><panel_attributes>*Service*
+--
+-string ServiceName (string: 20 chars)
+-int ServiceCode
+-int ServiceFee 
+-string ServiceDesc
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1090</x><y>470</y><w>230</w><h>150</h></coordinates><panel_attributes>*ProviderDirectory*
+--
+-Service[] ServiceList
+--
++FILE runProviderDirectory()
++bool verifyServiceCode(int)
++void printService(Service)
++Service getServiceData(int OR string)
++int getServiceFee(int OR string)
++int getServiceCode(int OR string)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1200</x><y>340</y><w>110</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=  1
+m2= 1..*
+  comprised of</panel_attributes><additional_attributes>10;130;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>140</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>520</y><w>150</w><h>40</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+m2=1</panel_attributes><additional_attributes>10;10;130;10</additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>100</y><w>350</w><h>70</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>10;10;10;50;330;50;330;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>430</x><y>720</y><w>160</w><h>70</h></coordinates><panel_attributes>&lt;&lt;actor&gt;&gt; ChocAn Operator
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>410</x><y>680</y><w>120</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>100;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>370</y><w>40</w><h>110</h></coordinates><panel_attributes>lt=&lt;-
+m1=  *
+m2=1 </panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>620</y><w>40</w><h>130</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>510</y><w>190</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>410</x><y>280</y><w>270</w><h>230</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;Interactive Mode&gt;&gt;</panel_attributes><additional_attributes>250;10;10;210</additional_attributes></element></diagram>

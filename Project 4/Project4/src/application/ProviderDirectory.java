@@ -76,7 +76,7 @@ public class ProviderDirectory {
 		}
 		
 		for (Service look: serviceArray) {
-			// Look through serviceArray for first elt. with "null" serviceName, replace with input data
+			// Look through serviceArray for first element with "null" serviceName, replace with input data
 			if (look.getServiceName() == "null") {
 				look.setServiceName(servName);
 				look.setServiceCode(servCode);

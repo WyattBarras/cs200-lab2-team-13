@@ -19,8 +19,6 @@ public class Terminal {
 		provDir.updateService(false, "Massage session", 111222, 69.99, "A one-hour appointment at a local massage parlor.");
 		provDir.updateService(true, "Setup Service 1", 100923, 40.00, "A one-hour lecture on dieting tips and tricks.");
 		System.out.println(provDir.toString());
-		Service get1 = provDir.getService("Dietitian appointment");
-		System.out.println(get1.toString());
 	}
 
 }

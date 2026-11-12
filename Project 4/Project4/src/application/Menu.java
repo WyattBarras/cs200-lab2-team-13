@@ -12,15 +12,7 @@ public class Menu {
 	}
 	
 	public void setMenuText(String role) {
-		if (role == "manager") {
-			menuText = "Manager Login:\n\tID Number: ";
-		} else if (role == "operator") {
-			menuText = "Operator Login:\n\tID Number: ";
-		} else if (role == "provider") {
-			menuText = "Provider Login:\n\tProvider Number: ";
-		} else {
-			System.out.println("Invalid role");
-		}
+		
 	}
 	
 	@Override

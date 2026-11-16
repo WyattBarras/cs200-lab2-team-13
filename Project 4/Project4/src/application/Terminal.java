@@ -11,31 +11,15 @@ public class Terminal {
 		 * 	- Add terminal functions
 		 */
 		int role = Integer.parseInt(args[0]);
-		Scanner loginScan = new Scanner(System.in);
-		int id = 0;
-		String password = "";
-		if (role == 1) {
-			System.out.print("Manager Login: \n   ID Number: ");
-			id = loginScan.nextInt();
-			System.out.print("\n   Password: ");
-			password = loginScan.next();
-		} else if (role == 2) {
-			System.out.print("Manager Login: \n   ID Number: ");
-			id = loginScan.nextInt();
-			System.out.print("\n   Password: ");
-			password = loginScan.nextLine();
-		} else if (role == 3) {
-			System.out.print("Manager Login: \n   Provider Number: ");
-			id = loginScan.nextInt();
-			System.out.print("\n   Password: ");
-			password = loginScan.nextLine();
-		} else {
+		if (role < 1 || role > 3){
 			System.out.println("Invalid role, exiting program");
 			System.exit(-1);
 		}
-		loginScan.close();
-		
-		System.out.println("ID: " + id + " Password: " + password);
+
+		LoginMenu loginMenu = new LoginMenu(role);
+		loginMenu.setMenuText();
+		boolean isLoginValid = false;
+		while (!isLoginValid) { isLoginValid = loginMenu.login(); }
 		
 		ProviderDirectory provDir = new ProviderDirectory(3);
 		provDir.addService("Massage session", 110923, 59.99, "A one-hour appointment at a local massage parlor.");

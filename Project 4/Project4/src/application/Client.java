@@ -16,6 +16,15 @@ public class Client {
       this.state = state;
       this.zipCode = zipCode;
    }
+   
+   public Client() {
+	  this.number = -1;
+	  this.name = "null";
+	  this.streetAddress = "null";
+	  this.city = "null";
+	  this.state = "null";
+	  this.zipCode = -1;
+   }
 
    public int getNumber() {
       return this.number;

@@ -3,9 +3,14 @@ package application;
 public class Provider extends Client {
    private int billAmount;
 
-   Provider(int number, String name, String streetAddress, String city, String state, int zipCode, int billAmount) {
+   public Provider(int number, String name, String streetAddress, String city, String state, int zipCode, int billAmount) {
       super(number, name, streetAddress, city, state, zipCode);
       this.billAmount = billAmount;
+   }
+   
+   public Provider() {
+	  super();
+	  this.billAmount = -1;
    }
 
    public int getBillAmount() {

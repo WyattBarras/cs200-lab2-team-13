@@ -4,10 +4,16 @@ public class Member extends Client {
    private int accountBalance;
    private boolean memberStatus;
 
-   Member(int number, String name, String streetAddress, String city, String state, int zipCode, int accountBalance, boolean memberStatus) {
+   public Member(int number, String name, String streetAddress, String city, String state, int zipCode, int accountBalance, boolean memberStatus) {
       super(number, name, streetAddress, city, state, zipCode);
       this.accountBalance = accountBalance;
       this.memberStatus = memberStatus;
+   }
+   
+   public Member() {
+	  super();
+	  this.accountBalance = -1;
+	  this.memberStatus = false;
    }
 
    public int getAccountBalance() {

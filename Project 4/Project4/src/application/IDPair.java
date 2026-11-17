@@ -25,4 +25,9 @@ public class IDPair<T1, T2> {
     public int hashCode() {
         return Objects.hash(id, password);
     }
+
+	@Override
+	public String toString() {
+		return "IDPair [id=" + id + ", password=" + password + "]";
+	}
 }

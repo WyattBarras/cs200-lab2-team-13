@@ -36,31 +36,32 @@ public class LoginMenu {
 	
 	public boolean login() {
 		boolean isValid = false;
-		System.out.println(this.toString());
 		Scanner loginScan = new Scanner(System.in);
+		System.out.print(this.toString());
 		
-		Integer id = loginScan.nextInt();
-		System.out.println("Password: ");
+		Integer id = Integer.parseInt(loginScan.next());
+		System.out.print("Password: ");
 		String pass = loginScan.next();
-		loginScan.close();
 		IDPair<Integer, String> idIN = new IDPair<Integer, String>(id, pass);
+		loginScan.close();
 		
 		boolean pairFound = false;
 		File passes = new File("/home/wbarras/cs200-lab2-team-13/Project 4/Project4/passes.txt");
-		String idStr = null;
 		String passStr = null;
 		int idNum = 0;
 		
 		try (Scanner reader = new Scanner(passes)){
 			while (reader.hasNext()) {
-				idStr = reader.next();
-				idNum = Integer.parseInt(idStr);
-				passStr = reader.next();
-				
+				idNum = Integer.parseInt(reader.next());
+				System.out.println(idNum);
 				if (idNum == idIN.getID()) {
 					pairFound = true;
+					passStr = reader.next();
+					System.out.println(passStr);
 					break;
 				}
+				
+				passStr = reader.next();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -71,7 +72,7 @@ public class LoginMenu {
 		}
 		
 		IDPair<Integer, String> idComp = new IDPair<Integer, String>(idNum, passStr);
-		if (idIN.getPassword() == idComp.getPassword()) {
+		if (idIN.hashCode() == idComp.hashCode()) {
 			isValid = true;
 		}
 		return isValid;

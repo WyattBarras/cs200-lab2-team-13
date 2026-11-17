@@ -1,10 +1,10 @@
 package application;
 
 public class Member extends Client {
-   private int accountBalance;
+   private double accountBalance;
    private boolean memberStatus;
 
-   public Member(int number, String name, String streetAddress, String city, String state, int zipCode, int accountBalance, boolean memberStatus) {
+   public Member(int number, String name, String streetAddress, String city, String state, int zipCode, double accountBalance, boolean memberStatus) {
       super(number, name, streetAddress, city, state, zipCode);
       this.accountBalance = accountBalance;
       this.memberStatus = memberStatus;
@@ -16,11 +16,11 @@ public class Member extends Client {
 	  this.memberStatus = false;
    }
 
-   public int getAccountBalance() {
+   public double getAccountBalance() {
       return this.accountBalance;
    }
 
-   public void setAccountBalance(int accountBalance) {
+   public void setAccountBalance(double accountBalance) {
       this.accountBalance = accountBalance;
    }
 

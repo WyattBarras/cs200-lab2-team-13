@@ -18,12 +18,13 @@ public class Terminal {
 			
 			while (scanMem.hasNext()) {
 				int memNum = Integer.parseInt(scanMem.next());
+				scanMem.nextLine();
 				String memName = scanMem.nextLine();
 				String memAddr = scanMem.nextLine();
 				String memCity = scanMem.nextLine();
-				String memState= scanMem.next();
-				int memZIP = Integer.parseInt(scanMem.next());
-				int memBal = Integer.parseInt(scanMem.next());
+				String memState = scanMem.next();
+				int memZIP = scanMem.nextInt();
+				double memBal = scanMem.nextDouble();
 				boolean memStatus = Boolean.parseBoolean(scanMem.next());
 				
 				memberList.addMember(memNum, memName, memAddr, memCity, memState, memZIP, memBal, memStatus);

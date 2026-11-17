@@ -20,7 +20,7 @@ public class MemberList {
 		return val;
 	}
 	
-	public void addMember(int number, String name, String streetAddress, String city, String state, int zipCode, int accountBalance, boolean memberStatus) {
+	public void addMember(int number, String name, String streetAddress, String city, String state, int zipCode, double accountBalance, boolean memberStatus) {
 		Member next = new Member(number, name, streetAddress, city, state, zipCode, accountBalance, memberStatus);
 		this.memberList.add(next);
 	}
@@ -38,7 +38,7 @@ public class MemberList {
 		this.memberList.remove(index);
 	}
 	
-	public void updateMemberRecords(int number, String name, String streetAddress, String city, String state, int zipCode, int accountBalance, boolean memberStatus) {
+	public void updateMemberRecords(int number, String name, String streetAddress, String city, String state, int zipCode, double accountBalance, boolean memberStatus) {
 		Member change = new Member();
 		boolean found = false;
 		for(Member x:this.memberList) {
@@ -59,4 +59,14 @@ public class MemberList {
 		}
 	}
 
+	@Override
+	public String toString() {
+		String memText = "";
+		for (Member m: this.memberList) {
+			memText += m.toString() + "\n";
+		}
+		return memText;
+	}
+
+	
 }

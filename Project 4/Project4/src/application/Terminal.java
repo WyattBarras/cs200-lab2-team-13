@@ -1,15 +1,20 @@
 package application;
 
-import java.util.Scanner;
-
 public class Terminal {
 
+	public void readDataFromFiles(String[] filepaths) {
+		
+	}
+	
 	public static void main(String[] args) {
 		/* TODO: 
-		 *  - Add Main menu/submenu functionality
-		 *  - Add login functionality for each role (hashed passwords?)
-		 * 	- Add terminal functions
+		 *  - Finish login menu functions (hashed passwords?)
+		 *  - Add Operation menu functionality
+		 * 	- Add terminal functions, permissions determined by role
 		 */
+		String[] filepaths = {"/home/wbarras/cs200-lab2-team-13/Project 4/Project4/members.txt",
+							  "/home/wbarras/cs200-lab2-team-13/Project 4/Project4/providers.txt",
+							  "/home/wbarras/cs200-lab2-team-13/Project 4/Project4/services.txt"};
 		int role = Integer.parseInt(args[0]);
 		if (role < 1 || role > 3){
 			System.out.println("Invalid role, exiting program");
@@ -19,7 +24,12 @@ public class Terminal {
 		LoginMenu loginMenu = new LoginMenu(role);
 		loginMenu.setMenuText();
 		boolean isLoginValid = false;
-		while (!isLoginValid) { isLoginValid = loginMenu.login(); }
+		isLoginValid = loginMenu.login();
+		
+		if(!isLoginValid) {
+			System.out.println("Invalid login credentials. Exiting program.");
+			System.exit(0);
+		}
 		
 		ProviderDirectory provDir = new ProviderDirectory(3);
 		provDir.addService("Massage session", 110923, 59.99, "A one-hour appointment at a local massage parlor.");

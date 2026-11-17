@@ -37,6 +37,37 @@ public class Terminal {
 		return memberList;
 	}
 	
+	public static ProviderList readProvidersFromFile(String filepath) {
+		File providers = new File(filepath);
+		if (!providers.exists()) {
+			System.out.println("Members file does not exist. Exiting program");
+			System.exit(404);
+		}
+		
+		ProviderList providerList = new ProviderList();
+		try(Scanner scanProv = new Scanner(providers)){
+			
+			while (scanProv.hasNext()) {
+				int provNum = Integer.parseInt(scanProv.next());
+				scanProv.nextLine();
+				String provName = scanProv.nextLine();
+				String provAddr = scanProv.nextLine();
+				String provCity = scanProv.nextLine();
+				String provState = scanProv.next();
+				int provZIP = scanProv.nextInt();
+				double provBill = scanProv.nextDouble();
+				
+				providerList.addProvider(provNum, provName, provAddr, provCity, provState, provZIP, provBill);
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return providerList;
+		
+	}
+	
 	public static void main(String[] args) {
 		/* TODO: 
 		 *  - Add read from files and write to files
@@ -64,7 +95,9 @@ public class Terminal {
 				  "/home/wbarras/cs200-lab2-team-13/Project 4/Project4/providers.txt",
 				  "/home/wbarras/cs200-lab2-team-13/Project 4/Project4/services.txt"};
 		MemberList memberList = readMembersFromFile(filepaths[0]);
+		ProviderList providerList = readProvidersFromFile(filepaths[1]);
 		System.out.println(memberList.toString());
+		System.out.println(providerList.toString());
 		
 		ProviderDirectory provDir = new ProviderDirectory(3);
 		provDir.addService("Massage session", 110923, 59.99, "A one-hour appointment at a local massage parlor.");

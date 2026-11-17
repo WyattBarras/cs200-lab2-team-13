@@ -1,9 +1,9 @@
 package application;
 
 public class Provider extends Client {
-   private int billAmount;
+   private double billAmount;
 
-   public Provider(int number, String name, String streetAddress, String city, String state, int zipCode, int billAmount) {
+   public Provider(int number, String name, String streetAddress, String city, String state, int zipCode, double billAmount) {
       super(number, name, streetAddress, city, state, zipCode);
       this.billAmount = billAmount;
    }
@@ -13,11 +13,17 @@ public class Provider extends Client {
 	  this.billAmount = -1;
    }
 
-   public int getBillAmount() {
+   public double getBillAmount() {
       return this.billAmount;
    }
 
-   public void setBillAmount(int billAmount) {
+   public void setBillAmount(double billAmount) {
       this.billAmount = billAmount;
+   }
+   
+   @Override
+   public String toString() {
+	   return number + "\n" + name + "\n" + streetAddress + "\n" + city + "\n" + state + " " + zipCode + " "
+			   + billAmount;
    }
 }

@@ -66,7 +66,5 @@ public class MemberList {
 			memText += m.toString() + "\n";
 		}
 		return memText;
-	}
-
-	
+	}	
 }

@@ -20,12 +20,12 @@ public class ProviderList {
 		return val;
 	}
 	
-	public void addMember(int number, String name, String streetAddress, String city, String state, int zipCode, int billAmount) {
+	public void addProvider(int number, String name, String streetAddress, String city, String state, int zipCode, double billAmount) {
 		Provider next = new Provider(number, name, streetAddress, city, state, zipCode, billAmount);
 		this.providerList.add(next);
 	}
 	
-	public void removeMember(int idNum) {
+	public void removeProvider(int idNum) {
 		int index = -1;
 		int i = 0;
 		for(Provider x:this.providerList) {
@@ -38,7 +38,7 @@ public class ProviderList {
 		this.providerList.remove(index);
 	}
 	
-	public void updateMemborRecords(int number, String name, String streetAddress, String city, String state, int zipCode, int billAmount) {
+	public void updateProviderRecords(int number, String name, String streetAddress, String city, String state, int zipCode, double billAmount) {
 		Provider change = new Provider();
 		boolean found = false;
 		for(Provider x:this.providerList) {
@@ -57,4 +57,13 @@ public class ProviderList {
 			change.setBillAmount(billAmount);
 		}
 	}
+	
+	@Override
+	public String toString() {
+		String provText = "";
+		for (Provider m: this.providerList) {
+			provText += m.toString() + "\n";
+		}
+		return provText;
+	}	
 }

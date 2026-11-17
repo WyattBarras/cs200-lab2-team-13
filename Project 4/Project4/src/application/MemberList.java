@@ -38,7 +38,7 @@ public class MemberList {
 		this.memberList.remove(index);
 	}
 	
-	public void updateMemborRecords(int number, String name, String streetAddress, String city, String state, int zipCode, int accountBalance, boolean memberStatus) {
+	public void updateMemberRecords(int number, String name, String streetAddress, String city, String state, int zipCode, int accountBalance, boolean memberStatus) {
 		Member change = new Member();
 		boolean found = false;
 		for(Member x:this.memberList) {

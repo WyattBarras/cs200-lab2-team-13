@@ -31,4 +31,12 @@ public class Member extends Client {
    public void setMemberStatus(boolean memberStatus) {
       this.memberStatus = memberStatus;
    }
+
+   @Override
+   public String toString() {
+	   return number + "\n" + name + "\n" + streetAddress + "\n" + city + "\n" + state + " " + zipCode + " "
+			   + accountBalance + " " + memberStatus;
+   }
+   
+   
 }

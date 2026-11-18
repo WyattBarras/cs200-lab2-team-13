@@ -1,5 +1,8 @@
 package application;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -99,6 +102,14 @@ public class ProviderDirectory {
 	}
 	
 	public void exportProviderDirectory() {
-		// TODO: Export Provider Directory to a file in the working directory
+		String fileLocation = "ProviderDirectory.txt";
+		
+		try(var bufWrite = new BufferedWriter(new FileWriter(fileLocation))) {
+			bufWrite.write(this.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Provider Directory write completed.");
 	}
 }

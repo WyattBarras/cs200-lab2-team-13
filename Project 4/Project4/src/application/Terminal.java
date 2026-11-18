@@ -111,12 +111,8 @@ public class Terminal {
 	public static void main(String[] args) {
 		/* TODO: 
 		 *  - Add write to files
-		 *  - Add Operation menu functionality
 		 * 	- Add terminal functions, permissions determined by role
 		 */
-		
-		File curDir = new File(".");
-		System.out.println(curDir.getAbsolutePath());
 		
 		int role = Integer.parseInt(args[0]);
 		if (role < 1 || role > 3){
@@ -143,6 +139,7 @@ public class Terminal {
 		System.out.println(memberList.toString());
 		System.out.println(providerList.toString());
 		System.out.println(provDir.toString());
+		
 	}
 
 }

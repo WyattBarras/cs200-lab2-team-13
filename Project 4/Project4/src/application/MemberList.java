@@ -45,24 +45,23 @@ public class MemberList {
 				found = true;
 			}
 			if(found) {
-				if (name != "-1") {
-					x.setName(name);
-				}
-				if (streetAddress != "-1") {
-					x.setStreetAddress(streetAddress);
-				}
-				if (city != "-1") {
-					x.setCity(city);
-				}
-				if (state != "-1") {
-					x.setState(state);
-				}
-				if (zipCode != -1) {
-					x.setZipCode(zipCode);
-				}
-				if (accountBalance != -1) {
-					x.setAccountBalance(accountBalance);
-				}
+				if (name.contains("-1")) {
+				} else { x.setName(name); }
+				
+				if (streetAddress.contains("-1")) {
+				} else { x.setStreetAddress(streetAddress); }
+				
+				if (city.contains("-1")) {
+				} else { x.setCity(city); }
+				
+				if (state.contains("-1")) {
+				} else { x.setState(state); }
+				
+				if (zipCode == -1) {
+				} else { x.setZipCode(zipCode); }
+				
+				if (accountBalance == -1) {
+				} else { x.setAccountBalance(accountBalance); }
 				x.setMemberStatus(memberStatus);
 				break;
 			}

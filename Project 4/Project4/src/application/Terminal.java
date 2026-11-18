@@ -188,7 +188,6 @@ public class Terminal {
 						System.out.println("Invalid function.");
 						break;
 				}
-				inputScan.nextLine();
 			}
 		} else if (role == 3) {
 			while (cont) {

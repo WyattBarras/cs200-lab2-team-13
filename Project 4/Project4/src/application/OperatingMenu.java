@@ -63,9 +63,9 @@ public class OperatingMenu {
 		System.out.print("New Member ZIP > ");
 		int memZip = Integer.parseInt(memScan.nextLine().trim());
 		System.out.print("New Member Balance > ");
-		double memBal = Double.parseDouble(memScan.next().trim());
+		double memBal = Double.parseDouble(memScan.nextLine().trim());
 		System.out.print("New Member Status > ");
-		boolean memStatus = Boolean.parseBoolean(memScan.next().trim());
+		boolean memStatus = Boolean.parseBoolean(memScan.nextLine().trim());
 
 		memList.addMember(memNumber, memName, memAddr, memCity, memState, memZip, memBal, memStatus);
 	}
@@ -73,7 +73,7 @@ public class OperatingMenu {
 	public void deleteMember(MemberList memList, Scanner scan) {
 		scan.nextLine();
 		System.out.print("Member ID to delete > ");
-		int idNum = scan.nextInt();
+		int idNum = Integer.parseInt(scan.nextLine().trim());
 		memList.removeMember(idNum);
 	}
 
@@ -91,11 +91,11 @@ public class OperatingMenu {
 		System.out.print("New Member State > ");
 		String memState = updateScan.nextLine();
 		System.out.print("New Member ZIP > ");
-		int memZip = Integer.parseInt(updateScan.nextLine());
+		int memZip = Integer.parseInt(updateScan.nextLine().trim());
 		System.out.print("New Member Balance > ");
-		double memBal = Double.parseDouble(updateScan.nextLine());
+		double memBal = Double.parseDouble(updateScan.nextLine().trim());
 		System.out.print("New Member Status (true or false) > ");
-		boolean memStatus = Boolean.parseBoolean(updateScan.nextLine());
+		boolean memStatus = Boolean.parseBoolean(updateScan.nextLine().trim());
 
 		memList.updateMemberRecords(memNumber, memName, memAddr, memCity, memState, memZip, memBal, memStatus);
 	}
@@ -115,12 +115,36 @@ public class OperatingMenu {
 		System.out.print("New Provider ZIP > ");
 		int provZip = Integer.parseInt(provScan.nextLine().trim());
 		System.out.print("New Provider Bill > ");
-		double provBill = Double.parseDouble(provScan.next().trim());
+		double provBill = Double.parseDouble(provScan.nextLine().trim());
 
 		provList.addProvider(provNumber, provName, provAddr, provCity, provState, provZip, provBill);
 	}
 	
 	public void deleteProvider(ProviderList provList, Scanner scan) {
-		
+		scan.nextLine();
+		System.out.print("Provider ID to delete > ");
+		int idNum = Integer.parseInt(scan.nextLine().trim());
+		provList.removeProvider(idNum);
+	}
+	
+	public void updateProvider(ProviderList provList, Scanner provScan) {
+		provScan.nextLine();
+		System.out.println("Enter -1 if no change");
+		System.out.print("Provider Number > ");
+		int provNumber = Integer.parseInt(provScan.nextLine().trim());
+		System.out.print("New Provider Name > ");
+		String provName = provScan.nextLine();
+		System.out.print("New Provider Address > ");
+		String provAddr = provScan.nextLine();
+		System.out.print("New Provider City > ");
+		String provCity = provScan.nextLine();
+		System.out.print("New Provider State > ");
+		String provState = provScan.nextLine();
+		System.out.print("New Provider ZIP > ");
+		int provZip = Integer.parseInt(provScan.nextLine().trim());
+		System.out.print("New Provider Bill > ");
+		double provBill = Double.parseDouble(provScan.nextLine().trim());
+
+		provList.addProvider(provNumber, provName, provAddr, provCity, provState, provZip, provBill);
 	}
 }

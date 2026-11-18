@@ -135,9 +135,7 @@ public class Terminal {
 		MemberList memberList = readMembersFromFile(filepaths[0]);
 		ProviderList providerList = readProvidersFromFile(filepaths[1]);
 		ProviderDirectory provDir = readProvDirFromFile(filepaths[2]);
-		System.out.println(memberList.toString());
-		System.out.println(providerList.toString());
-		System.out.println(provDir.toString());
+		ServiceRecordList servRecordList = new ServiceRecordList();
 		
 		OperatingMenu opMenu = new OperatingMenu(role, LoginID);
 		opMenu.generateOperatingMenu();
@@ -157,6 +155,15 @@ public class Terminal {
 				case 3:
 					opMenu.updateMember(memberList, inputScan);
 					break;
+				case 4:
+					opMenu.addMember(memberList, inputScan);
+					break;
+				case 5:
+					opMenu.deleteProvider(providerList, inputScan);
+					break;
+				case 6:
+					opMenu.updateProvider(providerList, inputScan);
+					break;
 				case 9:
 					System.out.println("Exiting program...");
 					cont = false;
@@ -165,7 +172,6 @@ public class Terminal {
 						System.out.println("Invalid function.");
 						break;
 				}
-				inputScan.nextLine();
 			}
 		} else if (role == 2) {
 			while (cont) {
@@ -180,6 +186,15 @@ public class Terminal {
 				case 3:
 					opMenu.updateMember(memberList, inputScan);
 					break;
+				case 4:
+					opMenu.addMember(memberList, inputScan);
+					break;
+				case 5:
+					opMenu.deleteProvider(providerList, inputScan);
+					break;
+				case 6:
+					opMenu.updateProvider(providerList, inputScan);
+					break;
 				case 9:
 					System.out.println("Exiting program...");
 					cont = false;
@@ -192,6 +207,14 @@ public class Terminal {
 		} else if (role == 3) {
 			while (cont) {
 				opMenu.displayMenu();
+				switch (inputScan.nextInt()) {
+				case 1:
+					opMenu.writeServiceRecord(servRecordList, memberList, provDir, inputScan, LoginID);
+					break;
+					default:
+						System.out.println("Invalid function.");
+						break;
+				}
 			}
 		}
 		System.out.println(memberList.toString());

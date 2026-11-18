@@ -39,7 +39,6 @@ public class OperatingMenu {
 			menuText += ("Hello Provider " + this.opID + "!\n");
 			menuText += "  Available Functions: \n";
 			menuText += "   (1) Write Service Record";
-			menuText += "   (2) Process Transaction";
 			menuText += "   (9) Quit\n";
 		}
 	}
@@ -50,6 +49,7 @@ public class OperatingMenu {
 
 	public void addMember(MemberList memList, Scanner memScan) {
 		memScan.nextLine();
+		
 		System.out.print("New Member Number > ");
 		int memNumber = Integer.parseInt(memScan.nextLine().trim());
 		System.out.print("New Member Name > ");
@@ -79,6 +79,7 @@ public class OperatingMenu {
 
 	public void updateMember(MemberList memList, Scanner updateScan) {
 		updateScan.nextLine();
+		
 		System.out.println("Enter -1 if no change");
 		System.out.print("Member Number > ");
 		int memNumber = Integer.parseInt(updateScan.nextLine().trim());
@@ -102,6 +103,7 @@ public class OperatingMenu {
 	
 	public void addProvider(ProviderList provList, Scanner provScan) {
 		provScan.nextLine();
+		
 		System.out.print("New Provider Number > ");
 		int provNumber = Integer.parseInt(provScan.nextLine().trim());
 		System.out.print("New Provider Name > ");
@@ -129,6 +131,7 @@ public class OperatingMenu {
 	
 	public void updateProvider(ProviderList provList, Scanner provScan) {
 		provScan.nextLine();
+		
 		System.out.println("Enter -1 if no change");
 		System.out.print("Provider Number > ");
 		int provNumber = Integer.parseInt(provScan.nextLine().trim());
@@ -145,6 +148,41 @@ public class OperatingMenu {
 		System.out.print("New Provider Bill > ");
 		double provBill = Double.parseDouble(provScan.nextLine().trim());
 
-		provList.addProvider(provNumber, provName, provAddr, provCity, provState, provZip, provBill);
+		provList.updateProviderRecords(provNumber, provName, provAddr, provCity, provState, provZip, provBill);
+	}
+	
+	public void writeServiceRecord(ServiceRecordList servRecordList, MemberList memList, ProviderDirectory provDir, 
+			                       Scanner servScan, int idNum) {
+		servScan.nextLine();
+		
+		System.out.print("Current Date & Time: ");
+		String curDateTime = servScan.nextLine();
+		System.out.println("Service Date & Time: ");
+		String servDateTime = servScan.nextLine();
+		
+		int provNum = idNum;
+		int memNum = Integer.parseInt(servScan.nextLine().trim());
+		if (memList.getMember(memNum) == null) {
+			return;
+		}
+		
+		int servCode = Integer.parseInt(servScan.nextLine().trim());
+		Service a = provDir.getService(servCode);
+		
+		if (a != null) {
+			System.out.println(a.getServiceCode());
+			System.out.println(a.getServiceName());
+			System.out.println(a.getServiceDesc());
+			System.out.println("Is this right? (y/n)");
+			String cont = servScan.nextLine();
+			if (cont.contains("n")) { System.out.println("Exiting to menu..."); return; }
+		} else {
+			System.out.println("Service does not exist.");
+			return;
+		}
+		
+		String comments = servScan.nextLine();
+		
+		servRecordList.addServiceRecord(curDateTime, servDateTime, provNum, memNum, servCode, comments);
 	}
 }

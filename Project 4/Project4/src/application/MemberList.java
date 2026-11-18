@@ -15,9 +15,8 @@ public class MemberList {
 				return x;
 			}
 		}
-		System.out.println("Error: Member not found in List. Defaulting to empty member");
-		Member val = new Member();
-		return val;
+		System.out.println("Member not found in member list.");
+		return null;
 	}
 	
 	public void addMember(int number, String name, String streetAddress, String city, String state, int zipCode, double accountBalance, boolean memberStatus) {

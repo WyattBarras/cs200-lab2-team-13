@@ -42,10 +42,10 @@ public class ProviderDirectory {
 		this.serviceArray = newArray;
 	}
 	
-	public Service getService(String servName) {
+	public Service getService(int servCode) {
 		for (Service look: serviceArray) {
-			// looks for service by name in serviceArray, if not found returns null
-			if (look.getServiceName() == servName) {
+			// looks for service by code in serviceArray, if not found returns null
+			if (look.getServiceCode() == servCode) {
 				return look;
 			}
 		}

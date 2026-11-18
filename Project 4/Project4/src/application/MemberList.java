@@ -39,23 +39,36 @@ public class MemberList {
 	}
 	
 	public void updateMemberRecords(int number, String name, String streetAddress, String city, String state, int zipCode, double accountBalance, boolean memberStatus) {
-		Member change = new Member();
 		boolean found = false;
 		for(Member x:this.memberList) {
 			if(x.getNumber() == number) {
 				found = true;
-				change = x;
+			}
+			if(found) {
+				if (name != "-1") {
+					x.setName(name);
+				}
+				if (streetAddress != "-1") {
+					x.setStreetAddress(streetAddress);
+				}
+				if (city != "-1") {
+					x.setCity(city);
+				}
+				if (state != "-1") {
+					x.setState(state);
+				}
+				if (zipCode != -1) {
+					x.setZipCode(zipCode);
+				}
+				if (accountBalance != -1) {
+					x.setAccountBalance(accountBalance);
+				}
+				x.setMemberStatus(memberStatus);
 				break;
 			}
 		}
-		if(found) {
-			change.setName(name);
-			change.setStreetAddress(streetAddress);
-			change.setCity(city);
-			change.setState(state);
-			change.setZipCode(zipCode);
-			change.setAccountBalance(accountBalance);
-			change.setMemberStatus(memberStatus);
+		if (!found) {
+			System.out.println("Member does not exist in database.");
 		}
 	}
 

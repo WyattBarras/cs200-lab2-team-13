@@ -108,36 +108,95 @@ public class Terminal {
 		return provDir;
 	}
 	
+	
 	public static void main(String[] args) {
 		/* TODO: 
 		 *  - Add write to files
 		 * 	- Add terminal functions, permissions determined by role
 		 */
+		Scanner inputScan = new Scanner(System.in);
 		
-		int role = Integer.parseInt(args[0]);
-		if (role < 1 || role > 3){
-			System.out.println("Invalid role, exiting program");
-			System.exit(-1);
-		}
-		
-		LoginMenu loginMenu = new LoginMenu(role);
+		LoginMenu loginMenu = new LoginMenu();
 		loginMenu.setMenuText();
-		int LoginID = loginMenu.login();
-		
-		if(LoginID < 0) {
+		int LoginID = loginMenu.login(inputScan);
+		int role = 0;
+		if (LoginID < 0) {
 			System.out.println("Invalid login credentials. Exiting program.");
 			System.exit(0);
+		} else if (LoginID % 111111 == 0) {
+			role = 1;
+		} else if (LoginID < 200000) {
+			role = 2;
+		} else {
+			role = 3;
 		}
 		
-		String[] filepaths = {"/home/wbarras/cs200-lab2-team-13/Project 4/Project4/members.txt",
-				  "/home/wbarras/cs200-lab2-team-13/Project 4/Project4/providers.txt",
-				  "/home/wbarras/cs200-lab2-team-13/Project 4/Project4/services.txt"};
+		String[] filepaths = {"members.txt","providers.txt","services.txt"};
 		MemberList memberList = readMembersFromFile(filepaths[0]);
 		ProviderList providerList = readProvidersFromFile(filepaths[1]);
 		ProviderDirectory provDir = readProvDirFromFile(filepaths[2]);
+		System.out.println(memberList.toString());
+		System.out.println(providerList.toString());
+		System.out.println(provDir.toString());
 		
 		OperatingMenu opMenu = new OperatingMenu(role, LoginID);
+		opMenu.generateOperatingMenu();
+		boolean cont = true;
 		
+		
+		if (role == 1) {
+			while (cont) {
+				opMenu.displayMenu();
+				switch (inputScan.nextInt()){
+				case 1:
+					opMenu.addMember(memberList, inputScan);
+					break;
+				case 2:
+					opMenu.deleteMember(memberList, inputScan);
+					break;
+				case 3:
+					opMenu.updateMember(memberList, inputScan);
+					break;
+				case 9:
+					System.out.println("Exiting program...");
+					cont = false;
+					break;
+					default:
+						System.out.println("Invalid function.");
+						break;
+				}
+				inputScan.nextLine();
+			}
+		} else if (role == 2) {
+			while (cont) {
+				opMenu.displayMenu();
+				switch (inputScan.nextInt()){
+				case 1:
+					opMenu.addMember(memberList, inputScan);
+					break;
+				case 2:
+					opMenu.deleteMember(memberList, inputScan);
+					break;
+				case 3:
+					opMenu.updateMember(memberList, inputScan);
+					break;
+				case 9:
+					System.out.println("Exiting program...");
+					cont = false;
+					break;
+					default:
+						System.out.println("Invalid function.");
+						break;
+				}
+				inputScan.nextLine();
+			}
+		} else if (role == 3) {
+			while (cont) {
+				opMenu.displayMenu();
+			}
+		}
+		System.out.println(memberList.toString());
+		inputScan.close();
 	}
-
 }
+		

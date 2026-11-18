@@ -39,22 +39,35 @@ public class ProviderList {
 	}
 	
 	public void updateProviderRecords(int number, String name, String streetAddress, String city, String state, int zipCode, double billAmount) {
-		Provider change = new Provider();
 		boolean found = false;
 		for(Provider x:this.providerList) {
 			if(x.getNumber() == number) {
 				found = true;
-				change = x;
+			}
+			if(found) {
+				if (name != "-1") {
+					x.setName(name);
+				}
+				if (streetAddress != "-1") {
+					x.setStreetAddress(streetAddress);
+				}
+				if (city != "-1") {
+					x.setCity(city);
+				}
+				if (state != "-1") {
+					x.setState(state);
+				}
+				if (zipCode != -1) {
+					x.setZipCode(zipCode);
+				}
+				if (billAmount != -1) {
+					x.setBillAmount(billAmount);
+				}
 				break;
 			}
 		}
-		if(found) {
-			change.setName(name);
-			change.setStreetAddress(streetAddress);
-			change.setCity(city);
-			change.setState(state);
-			change.setZipCode(zipCode);
-			change.setBillAmount(billAmount);
+		if (!found) {
+			System.out.println("Provider does not exist in database.");
 		}
 	}
 	

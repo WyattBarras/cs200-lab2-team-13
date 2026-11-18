@@ -6,27 +6,13 @@ import java.util.Scanner;
 
 public class LoginMenu {
 	private static String MENU_TEXT;
-	private String role;
 	
-	public LoginMenu(int role) {
-		if (role == 1) {
-			this.role = "Manager";
-		} else if (role == 2) {
-			this.role = "Operator";
-		} else if (role == 3) {
-			this.role = "Provider";
-		}
-	}
-	
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
+	public LoginMenu() {
+		MENU_TEXT = "";
 	}
 	
 	public void setMenuText() {
-		MENU_TEXT = this.role + " Login: \n   ID Number: ";
+		MENU_TEXT = "ChocAn Login: \n   ID Number: ";
 	}
 	
 	@Override
@@ -34,18 +20,16 @@ public class LoginMenu {
 		return MENU_TEXT;
 	}
 	
-	public int login() {
-		Scanner loginScan = new Scanner(System.in);
+	public int login(Scanner loginScan) {
 		System.out.print(this.toString());
 		
 		Integer id = Integer.parseInt(loginScan.next());
-		System.out.print("Password: ");
+		System.out.print("   Password: ");
 		String pass = loginScan.next();
 		IDPair<Integer, String> idIN = new IDPair<Integer, String>(id, pass);
-		loginScan.close();
 		
 		boolean pairFound = false;
-		File passes = new File("/home/wbarras/cs200-lab2-team-13/Project 4/Project4/passes.txt");
+		File passes = new File("passes.txt");
 		String passStr = null;
 		int idNum = 0;
 		
@@ -60,6 +44,7 @@ public class LoginMenu {
 				
 				passStr = reader.next();
 			}
+			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} 
@@ -72,6 +57,7 @@ public class LoginMenu {
 		if (idIN.hashCode() == idComp.hashCode()) {
 			return idIN.getID();
 		}
+		
 		return -1;
 	}
 }

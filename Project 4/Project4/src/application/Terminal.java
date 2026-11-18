@@ -2,7 +2,11 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Terminal {
 
@@ -30,7 +34,7 @@ public class Terminal {
 				memberList.addMember(memNum, memName, memAddr, memCity, memState, memZIP, memBal, memStatus);
 			}
 			
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
@@ -68,12 +72,51 @@ public class Terminal {
 		
 	}
 	
+	public static ProviderDirectory readProvDirFromFile(String filepath) {
+		File providerDirectory = new File(filepath);
+		if (!providerDirectory.exists()) {
+			System.out.println("Members file does not exist. Exiting program");
+			System.exit(404);
+		}
+		
+		Path path = Path.of(filepath);
+		long count = 0;
+		try (Stream<String> lines = Files.lines(path)) {
+            count = lines.count();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		int size = (int) (count / 4);
+		ProviderDirectory provDir = new ProviderDirectory(size);
+		
+		try(Scanner scanDir = new Scanner(providerDirectory)){
+			
+			while (scanDir.hasNext()) {
+				String servName = scanDir.nextLine();
+				int servNum = Integer.parseInt(scanDir.nextLine());
+				double servFee = Double.parseDouble(scanDir.nextLine());
+				String servDesc = scanDir.nextLine();
+				
+				provDir.addService(servName, servNum, servFee, servDesc);
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return provDir;
+	}
+	
 	public static void main(String[] args) {
 		/* TODO: 
-		 *  - Add read from files and write to files
+		 *  - Add write to files
 		 *  - Add Operation menu functionality
 		 * 	- Add terminal functions, permissions determined by role
 		 */
+		
+		File curDir = new File(".");
+		System.out.println(curDir.getAbsolutePath());
 		
 		int role = Integer.parseInt(args[0]);
 		if (role < 1 || role > 3){
@@ -96,14 +139,9 @@ public class Terminal {
 				  "/home/wbarras/cs200-lab2-team-13/Project 4/Project4/services.txt"};
 		MemberList memberList = readMembersFromFile(filepaths[0]);
 		ProviderList providerList = readProvidersFromFile(filepaths[1]);
+		ProviderDirectory provDir = readProvDirFromFile(filepaths[2]);
 		System.out.println(memberList.toString());
 		System.out.println(providerList.toString());
-		
-		ProviderDirectory provDir = new ProviderDirectory(3);
-		provDir.addService("Massage session", 110923, 59.99, "A one-hour appointment at a local massage parlor.");
-		provDir.addService("Dietitian appointment", 913458, 49.59, "A 30 minute appointment with a licensed dietitian.");
-		provDir.addService("Group therapy", 334455, 75.95, "A two-hour group therapy session with other ChocAn customers.");
-		provDir.addService("Setup Service 1", 0, 0, "null");
 		System.out.println(provDir.toString());
 	}
 

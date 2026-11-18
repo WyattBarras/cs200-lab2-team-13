@@ -56,7 +56,6 @@ public class Service {
 	public String toString() {
 		if (this.serviceName == "null") {return "Empty slot\n";}
 		
-		return "Service: " + serviceName + "\n   Code: " + serviceCode + "\n   Fee: " + serviceFee
-				+ "\n   Description: " + serviceDesc + "\n";
+		return serviceName + "\n" + serviceCode + "\n" + serviceFee + "\n" + serviceDesc;
 	}
 }

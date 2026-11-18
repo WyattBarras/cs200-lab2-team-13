@@ -41,5 +41,10 @@ public class OperatingMenu {
 			menuText += "   (9) Quit\n";
 		}
 	}
+
+	public void displayMenu() {
+		System.out.println(this.menuText);
+	}
+	
 	
 }

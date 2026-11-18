@@ -136,7 +136,7 @@ public class Terminal {
 		ProviderList providerList = readProvidersFromFile(filepaths[1]);
 		ProviderDirectory provDir = readProvDirFromFile(filepaths[2]);
 		
-		
+		OperatingMenu opMenu = new OperatingMenu(role, LoginID);
 		
 	}
 

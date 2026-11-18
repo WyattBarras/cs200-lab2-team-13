@@ -1,5 +1,12 @@
-Massage session
+Massage Session
 110923
 59.99
 A one-hour appointment at a local massage parlor
-
+Dietitian Appointment (Initial)
+598470
+125.00
+Initial appointment with dietitian, covering health history, diet, and lifestyle
+Dietitian Appointment (Regular)
+598471
+75.00
+Follow-up appointment with dietitian

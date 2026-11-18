@@ -34,8 +34,7 @@ public class LoginMenu {
 		return MENU_TEXT;
 	}
 	
-	public boolean login() {
-		boolean isValid = false;
+	public int login() {
 		Scanner loginScan = new Scanner(System.in);
 		System.out.print(this.toString());
 		
@@ -53,11 +52,9 @@ public class LoginMenu {
 		try (Scanner reader = new Scanner(passes)){
 			while (reader.hasNext()) {
 				idNum = Integer.parseInt(reader.next());
-				System.out.println(idNum);
 				if (idNum == idIN.getID()) {
 					pairFound = true;
 					passStr = reader.next();
-					System.out.println(passStr);
 					break;
 				}
 				
@@ -68,13 +65,13 @@ public class LoginMenu {
 		} 
 		
 		if (!pairFound) {
-			return false;
+			return -1;
 		}
 		
 		IDPair<Integer, String> idComp = new IDPair<Integer, String>(idNum, passStr);
 		if (idIN.hashCode() == idComp.hashCode()) {
-			isValid = true;
+			return idIN.getID();
 		}
-		return isValid;
+		return -1;
 	}
 }

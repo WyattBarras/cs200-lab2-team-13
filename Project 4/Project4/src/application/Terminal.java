@@ -122,10 +122,9 @@ public class Terminal {
 		
 		LoginMenu loginMenu = new LoginMenu(role);
 		loginMenu.setMenuText();
-		boolean isLoginValid = false;
-		isLoginValid = loginMenu.login();
+		int LoginID = loginMenu.login();
 		
-		if(!isLoginValid) {
+		if(LoginID < 0) {
 			System.out.println("Invalid login credentials. Exiting program.");
 			System.exit(0);
 		}
@@ -136,9 +135,8 @@ public class Terminal {
 		MemberList memberList = readMembersFromFile(filepaths[0]);
 		ProviderList providerList = readProvidersFromFile(filepaths[1]);
 		ProviderDirectory provDir = readProvDirFromFile(filepaths[2]);
-		System.out.println(memberList.toString());
-		System.out.println(providerList.toString());
-		System.out.println(provDir.toString());
+		
+		
 		
 	}
 

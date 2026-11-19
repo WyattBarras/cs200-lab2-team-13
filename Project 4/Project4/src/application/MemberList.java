@@ -5,18 +5,21 @@ import java.util.ArrayList;
 public class MemberList {
 	ArrayList<Member> memberList;
 	
+	// Standard constructor
 	public MemberList(){
 		this.memberList = new ArrayList<Member>();
 	}
-	
+
 	public int size() {
 		return this.memberList.size();
 	}
 	
+	// returns arrayList object to be used for accounting
 	public ArrayList<Member> getMemberList() {	
 		return this.memberList;
 	}
 	
+	// searches for Member by idNum, if not found returns null
 	public Member getMember(int idNum) {
 		for(Member x:this.memberList) {
 			if(x.getNumber() == idNum) {
@@ -27,6 +30,7 @@ public class MemberList {
 		return null;
 	}
 	
+	// Same as above, but returns name of found Member, else returns empty string
 	public String getMemberName(int memNum) {
 		String name = "";
 		for (Member m: memberList) {
@@ -37,11 +41,14 @@ public class MemberList {
 		return name;
 	}
 	
+	// adds new Member to end of memberList, using standard constructor
 	public void addMember(int number, String name, String streetAddress, String city, String state, int zipCode, double accountBalance, boolean memberStatus) {
 		Member next = new Member(number, name, streetAddress, city, state, zipCode, accountBalance, memberStatus);
 		this.memberList.add(next);
 	}
 	
+	// looks for member by idNum, removes from memberList at relevant index if found
+	// else outputs error message and returns;
 	public void removeMember(int idNum) {
 		int index = -1;
 		int i = 0;
@@ -56,6 +63,8 @@ public class MemberList {
 		this.memberList.remove(index);
 	}
 	
+	// looks for Member by number, if found update relevant data members (-1 for no change)
+	// if not found display error message
 	public void updateMemberRecords(int number, String name, String streetAddress, String city, String state, int zipCode, double accountBalance, boolean memberStatus) {
 		boolean found = false;
 		for(Member x:this.memberList) {
@@ -90,6 +99,7 @@ public class MemberList {
 	}
 
 	@Override
+	// basic toString() format matching format Members are read in, so writing does not mess up future reading
 	public String toString() {
 		String memText = "";
 		for (Member m: this.memberList) {

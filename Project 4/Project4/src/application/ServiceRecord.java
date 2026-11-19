@@ -8,8 +8,8 @@ public class ServiceRecord {
 	private int servCode;
 	private String comments;
 	
+	// Standard constructor
 	public ServiceRecord(String curDateTime, String serviceDateTime, int provNum, int memNum, int servCode, String comments) {
-		super();
 		this.curDateTime = curDateTime;
 		this.serviceDateTime = serviceDateTime;
 		this.provNum = provNum;
@@ -18,6 +18,7 @@ public class ServiceRecord {
 		this.comments = comments;
 	}
 	
+	// getters and setters
 	public String getCurDateTime() {
 		return curDateTime;
 	}
@@ -55,6 +56,7 @@ public class ServiceRecord {
 		this.comments = comments;
 	}
 
+	// verifies service code exists in the provider directory
 	public boolean verifyServiceCode(ProviderDirectory provDir) {
 		boolean verify = false;
 		if (provDir.getService(this.servCode) != null) {
@@ -64,6 +66,7 @@ public class ServiceRecord {
 	}
 	
 	@Override
+	// basic toString() for writing to files
 	public String toString() {
 		return curDateTime + "\n" + serviceDateTime + "\n" + provNum + "\n" + memNum + "\n" + servCode + "\n" + comments + "\n";
 	}

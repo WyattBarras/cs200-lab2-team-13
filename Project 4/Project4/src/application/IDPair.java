@@ -2,6 +2,12 @@ package application;
 
 import java.util.Objects;
 
+/*
+ * Pair class to implement  id/password checking 
+ * equals() not strictly necessary, but included for robustness
+ * hashCode() main method of comparing IDPair objects for equality
+ * */
+
 public class IDPair<T1, T2> {
     private final T1 id;
     private final T2 password;

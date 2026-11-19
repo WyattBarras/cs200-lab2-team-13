@@ -4,6 +4,7 @@ public class Member extends Client {
    private double accountBalance;
    private boolean memberStatus;
 
+   // Standard constructor, inherits Client instance variables
    public Member(int number, String name, String streetAddress, String city, String state, int zipCode, double accountBalance, boolean memberStatus) {
       super(number, name, streetAddress, city, state, zipCode);
       this.accountBalance = accountBalance;
@@ -33,6 +34,7 @@ public class Member extends Client {
    }
 
    @Override
+   // basic toString for writing to files in the same way Members are read from files
    public String toString() {
 	   return number + "\n" + name + "\n" + streetAddress + "\n" + city + "\n" + state + " " + zipCode + " "
 			   + accountBalance + " " + memberStatus;

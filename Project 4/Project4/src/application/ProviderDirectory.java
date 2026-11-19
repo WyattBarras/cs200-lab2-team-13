@@ -13,15 +13,12 @@ public class ProviderDirectory {
 	public ProviderDirectory(int arraySize) {
 		/* initializes array with empty Service objects 
 		 * later search methods use "null" name of empty objects to search for first empty object */
-		ArrayList<Service> newArray = new ArrayList<Service>(Collections.nCopies(arraySize, new Service()));
-		this.serviceArray = newArray;
+		this.serviceArray = new ArrayList<Service>(Collections.nCopies(arraySize, new Service()));
 	}
 	
 	public ProviderDirectory() {
 		// empty constructor initializes serviceArray with one empty Service object
-		this.serviceArray = new ArrayList<Service>(1);
-		Service s = new Service();
-		this.serviceArray.set(0, s);
+		this.serviceArray = new ArrayList<Service>(Collections.nCopies(1, new Service()));
 	}
 	
 	public Service getService(int servCode) {
@@ -36,6 +33,7 @@ public class ProviderDirectory {
 	
 	public String getServiceName(int servCode) {
 		String name = "";
+		// Search for service by code, return name if found, else name is an empty string
 		for (Service s: serviceArray) {
 			if (servCode == s.getServiceCode()) {
 				name = s.getServiceName();
@@ -57,16 +55,17 @@ public class ProviderDirectory {
 			}
 			index++;
 		}
+		// If no null elements (array full), use add (implicit grow()) to expand array and tack on new Service to end
 		if (!found) {
 			this.serviceArray.add(newServ);
 		}
 	}
 	
 	public void updateService(boolean codeChange, String servName, int servCode, double servFee, String servDesc, Scanner inCode) {
-		// Search for service by name
+		// Search for service by code
 		for(Service look: serviceArray) {
 			if (look.getServiceCode() == servCode) {
-				// If service name change required, ask for new name
+				// If service code change required, ask for new code
 				if (codeChange) {
 					System.out.printf("Input new code > ");
 					look.setServiceCode(Integer.parseInt(inCode.nextLine()));
@@ -82,9 +81,11 @@ public class ProviderDirectory {
 	
 	public void deleteService(int servCode) {
 		int index = 0;
+		// looks for service with matching code, removes from array
 		for (Service look: this.serviceArray) {
 			if (look.getServiceCode() == servCode) {
 				this.serviceArray.remove(index);
+				// Note: remove() automatically shifts following indices left by one
 			}
 			index++;
 		}
@@ -93,15 +94,19 @@ public class ProviderDirectory {
 	@Override
 	public String toString() {
 		String servString = "";
+		// Builds Provider Directory by concatenating each Service's toString() with space in between
 		for (Service s: serviceArray) {
-			servString += s.toString() + "\n";
+			servString += s.toString() + "\n\n";
 		}
+		// Strips excess leading and trailing whitespace
+		servString = servString.strip();
 		return servString;
 	}
 	
 	public void exportProviderDirectory() {
 		String fileLocation = "ProviderDirectory.txt";
 		
+		// Tries to create file with above name, writes this.toString into the file
 		try(var bufWrite = new BufferedWriter(new FileWriter(fileLocation))) {
 			bufWrite.write(this.toString());
 		} catch (IOException e) {

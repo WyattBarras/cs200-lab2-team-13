@@ -8,6 +8,7 @@ public class Client {
    protected String state;
    protected int zipCode;
 
+   // Standard constructor
    public Client(int number, String name, String streetAddress, String city, String state, int zipCode) {
       this.number = number;
       this.name = name;
@@ -17,6 +18,7 @@ public class Client {
       this.zipCode = zipCode;
    }
    
+   // Default constructor
    public Client() {
 	  this.number = -1;
 	  this.name = "null";
@@ -26,6 +28,7 @@ public class Client {
 	  this.zipCode = -1;
    }
 
+   // Getters and setters
    public int getNumber() {
       return this.number;
    }

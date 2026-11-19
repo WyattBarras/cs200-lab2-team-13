@@ -6,6 +6,7 @@ public class Service {
 	private double serviceFee;
 	private String serviceDesc;
 	
+	// Standard constructor
 	public Service(String serviceName, int serviceCode, double serviceFee, String serviceDesc) {
 		this.serviceName = serviceName;
 		this.serviceCode = serviceCode;
@@ -13,6 +14,7 @@ public class Service {
 		this.serviceDesc = serviceDesc;
 	}
 	
+	// Default constructor
 	public Service() {
 		this.serviceName = "null";
 		this.serviceCode = 0;
@@ -20,6 +22,7 @@ public class Service {
 		this.serviceDesc = "null";
 	}
 	
+	// Getters and setters
 	public String getServiceName() {
 		return serviceName;
 	}
@@ -53,6 +56,7 @@ public class Service {
 	}
 
 	@Override
+	// basic toString() matching format Services are read in for Provider Directory
 	public String toString() {
 		return serviceName + "\n" + serviceCode + "\n" + serviceFee + "\n" + serviceDesc;
 	}

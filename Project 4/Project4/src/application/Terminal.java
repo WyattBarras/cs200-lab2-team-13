@@ -125,7 +125,6 @@ public class Terminal {
 		Scanner inputScan = new Scanner(System.in);
 		
 		LoginMenu loginMenu = new LoginMenu();
-		loginMenu.setMenuText();
 		int LoginID = loginMenu.login(inputScan);
 		int role = 0;
 		if (LoginID < 0) {

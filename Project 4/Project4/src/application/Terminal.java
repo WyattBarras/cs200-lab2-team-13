@@ -100,7 +100,6 @@ public class Terminal {
 				int servNum = Integer.parseInt(scanDir.nextLine());
 				double servFee = Double.parseDouble(scanDir.nextLine());
 				String servDesc = scanDir.nextLine();
-				
 				provDir.addService(servName, servNum, servFee, servDesc);
 			}
 			
@@ -109,6 +108,36 @@ public class Terminal {
 		}
 		
 		return provDir;
+	}
+	
+	public static ServiceRecordList readServiceRecordsFromFile(String filepath) {
+		File servRecords = new File(filepath);
+		if (!servRecords.exists()) {
+			System.out.println("Service Records file does not exist. Exiting program");
+			System.exit(404);
+		}
+		
+		ServiceRecordList servRecordList = new ServiceRecordList();
+		try(Scanner scanProv = new Scanner(servRecords)){
+			
+			while (scanProv.hasNext()) {
+				String curDateTime = scanProv.nextLine();
+				String servDateTime = scanProv.nextLine();
+				int provNum = Integer.parseInt(scanProv.next());
+				int memNum = Integer.parseInt(scanProv.next());
+				scanProv.nextLine();
+				int servCode = Integer.parseInt(scanProv.nextLine());
+				String comments = scanProv.nextLine();
+				
+				servRecordList.addServiceRecord(curDateTime, servDateTime, provNum, memNum, servCode, comments);
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return servRecordList;
+		
 	}
 	
 	public static void writeFile(String filename, String contents) {
@@ -138,11 +167,11 @@ public class Terminal {
 			role = 3;
 		}
 		
-		String[] filepaths = {"members.txt","providers.txt","services.txt"};
+		String[] filepaths = {"members.txt","providers.txt","services.txt","service_records.txt"};
 		MemberList memberList = readMembersFromFile(filepaths[0]);
 		ProviderList providerList = readProvidersFromFile(filepaths[1]);
 		ProviderDirectory provDir = readProvDirFromFile(filepaths[2]);
-		ServiceRecordList servRecordList = new ServiceRecordList();
+		ServiceRecordList servRecordList = readServiceRecordsFromFile(filepaths[3]);
 		
 		OperatingMenu opMenu = new OperatingMenu(role, LoginID);
 		opMenu.generateOperatingMenu();
@@ -176,8 +205,8 @@ public class Terminal {
 					opMenu.runAccReport(servRecordList, providerList, provDir);
 					break;
 				case 8:
-					ArrayList<String> provReports = opMenu.runProviderReports(servRecordList, memberList, providerList, provDir);
-					writeFile("provider_reports.txt", provReports.toString());
+					String provReports = opMenu.runProviderReports(servRecordList, memberList, providerList, provDir);
+					writeFile("provider_reports.txt", provReports);
 					break;
 				case 9:
 					System.out.println("Exiting program...");
@@ -213,12 +242,12 @@ public class Terminal {
 					opMenu.updateProvider(providerList, inputScan);
 					break;
 				case 7:
-					ArrayList<String> memReports = opMenu.runMemberReports(servRecordList, memberList, provDir, providerList);
-					writeFile("member_reports.txt", memReports.toString());
+					String memReports = opMenu.runMemberReports(servRecordList, memberList, provDir, providerList);
+					writeFile("member_reports.txt", memReports);
 					break;
 				case 8:
-					ArrayList<String> provReports = opMenu.runProviderReports(servRecordList, memberList, providerList, provDir);
-					writeFile("provider_reports.txt", provReports.toString());
+					String provReports = opMenu.runProviderReports(servRecordList, memberList, providerList, provDir);
+					writeFile("provider_reports.txt", provReports);
 					break;
 				case 9:
 					System.out.println("Exiting program...");
@@ -265,6 +294,7 @@ public class Terminal {
 		writeFile(filepaths[0], memberList.toString());
 		writeFile(filepaths[1], providerList.toString());
 		writeFile(filepaths[2], provDir.toString());
+		writeFile(filepaths[3], servRecordList.toString());
 
 		System.out.println("Thank you for using ChocAn Services!");
 		System.out.println("Have a great day!");

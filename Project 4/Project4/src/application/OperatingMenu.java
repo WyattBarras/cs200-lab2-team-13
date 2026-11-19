@@ -1,6 +1,7 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class OperatingMenu {
@@ -8,11 +9,13 @@ public class OperatingMenu {
 	private int opID;
 	private String menuText = "";
 
+	// Standard constructor
 	public OperatingMenu(int role, int opID) {
 		this.role = role;
 		this.opID = opID;
 	}
 
+	// Creates menu based on role
 	public void generateOperatingMenu() {
 		if (this.role == 1) {
 			menuText += ("Hello Manager " + this.opID + "!\n");
@@ -54,9 +57,12 @@ public class OperatingMenu {
 		System.out.println(this.menuText);
 	}
 
+	// Adds member to memList based on user input
 	public void addMember(MemberList memList, Scanner memScan) {
+		// clears newline left by nextInt() in Terminal while loop
 		memScan.nextLine();
 		
+		// Repeatedly prompts for and scans user input for new Member data
 		System.out.print("New Member Number > ");
 		int memNumber = Integer.parseInt(memScan.nextLine().trim());
 		System.out.print("New Member Name > ");
@@ -74,9 +80,11 @@ public class OperatingMenu {
 		System.out.print("New Member Status > ");
 		boolean memStatus = Boolean.parseBoolean(memScan.nextLine().trim());
 
+		// adds Member to memList from user data
 		memList.addMember(memNumber, memName, memAddr, memCity, memState, memZip, memBal, memStatus);
 	}
 
+	// removes Member from memList using their number
 	public void deleteMember(MemberList memList, Scanner scan) {
 		scan.nextLine();
 		System.out.print("Member ID to delete > ");
@@ -199,14 +207,14 @@ public class OperatingMenu {
 		AccountingReport.runAccountingReport(servRecordList, provList, provDir);
 	}
 	
-	public ArrayList<String> runMemberReports(ServiceRecordList servRecordList, MemberList memList, ProviderDirectory provDir, ProviderList provList) {
-		ArrayList<String> memReports = new ArrayList<String>(memList.size());
-		ArrayList<Integer> memNums = new ArrayList<Integer>(memList.size());
+	public String runMemberReports(ServiceRecordList servRecordList, MemberList memList, ProviderDirectory provDir, ProviderList provList) {
+		ArrayList<String> memReports = new ArrayList<String>(Collections.nCopies(memList.size(), ""));
+		ArrayList<Integer> memNums = new ArrayList<Integer>(Collections.nCopies(memList.size(), 0));
 		int index = 0;
 		
 		for (Member m: memList.getMemberList()) {
 			memNums.set(index, m.getNumber());
-			String heading = m.getNumber() + "\n" + m.getName() + "\n" + m.getStreetAddress() + "\n" + m.getCity()
+			String heading = m.getNumber() + "\n" + m.getName() + "\n" + m.getStreetAddress() + "\n" + m.getCity() + " "
 							 + m.getState() + " " + m.getZipCode() + "\n";
 			memReports.set(index, heading);
 			index++;
@@ -216,24 +224,29 @@ public class OperatingMenu {
 			for (index = 0; index < memNums.size(); index++) {
 				if (s.getMemNum() == memNums.get(index)) {
 					String newAdd = memReports.get(index) + "\n   " + s.getServiceDateTime() + "\n   " + 
-									provList.getProvider(s.getProvNum()).getName() + provDir.getService(s.getServCode()).getServiceName();
+									provList.getProvider(s.getProvNum()).getName() + " " + provDir.getService(s.getServCode()).getServiceName() + "\n";
 					memReports.set(index, newAdd);
 				}
 			}
 		}
 		
-		return memReports;
+		String finalReport = "";
+		for (String str: memReports) {
+			finalReport += str + "\n";
+		}
+		
+		return finalReport;
 	}
 	
-	public ArrayList<String> runProviderReports(ServiceRecordList servRecordList, MemberList memList, ProviderList provList, ProviderDirectory provDir) {
+	public String runProviderReports(ServiceRecordList servRecordList, MemberList memList, ProviderList provList, ProviderDirectory provDir) {
 		
-		ArrayList<String> provReports = new ArrayList<String>(provList.size());
-		ArrayList<Integer> provNums = new ArrayList<Integer>(provList.size());
+		ArrayList<String> provReports = new ArrayList<String>(Collections.nCopies(provList.size(), ""));
+		ArrayList<Integer> provNums = new ArrayList<Integer>(Collections.nCopies(provList.size(), 0));
 		int index = 0;
 		
 		for (Provider p: provList.getProviderList()) {
 			provNums.set(index, p.getNumber());
-			String heading = p.getNumber() + "\n" + p.getName() + "\n" + p.getStreetAddress() + "\n" + p.getCity()
+			String heading = p.getNumber() + "\n" + p.getName() + "\n" + p.getStreetAddress() + "\n" + p.getCity() + " "
 							 + p.getState() + " " + p.getZipCode() + "\n";
 			provReports.set(index, heading);
 			index++;
@@ -242,19 +255,24 @@ public class OperatingMenu {
 		for (ServiceRecord s: servRecordList.getRecords()) {
 			for (index = 0; index < provNums.size(); index++) {
 				if (s.getProvNum() == provNums.get(index)) {
-					String newAdd = provReports.get(index) + "\n" + s.getServiceDateTime() + "\n" + s.getCurDateTime()
+					String newAdd = provReports.get(index) + "\n" + s.getServiceDateTime() + "\n" + s.getCurDateTime() + "\n"
 									+ memList.getMemberName(s.getMemNum()) + "\n" + s.getMemNum() + "\n" + s.getServCode()
-									+ "\n" + provDir.getService(s.getServCode()).getServiceFee() +"\n";
+									+ "\n" + provDir.getService(s.getServCode()).getServiceFee() +"\n\n\n";
 					provReports.set(index, newAdd);
 				}
 			}
 		}
 		
-		return provReports;
+		String reportFinal = "";
+		for (String str: provReports) {
+			reportFinal += str;
+		}
+		
+		return reportFinal;
 	}
 	
 	public void displayProviderDirectory(ProviderDirectory provDir) {
-		System.out.println("\n\n" + provDir.toString() + "\n\n");
+		System.out.println("\n\n" + provDir.toStringDisplay() + "\n\n");
 	}
 	
 	public void addService(ProviderDirectory provDir, Scanner servScan) {

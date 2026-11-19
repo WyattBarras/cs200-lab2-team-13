@@ -96,6 +96,18 @@ public class ProviderDirectory {
 		String servString = "";
 		// Builds Provider Directory by concatenating each Service's toString() with space in between
 		for (Service s: serviceArray) {
+			servString += s.toString() + "\n";
+		}
+		// Strips excess leading and trailing whitespace
+		servString = servString.strip();
+		return servString;
+	}
+	
+	// Same as above with extra space for readability
+	public String toStringDisplay() {
+		String servString = "";
+		// Builds Provider Directory by concatenating each Service's toString() with space in between
+		for (Service s: serviceArray) {
 			servString += s.toString() + "\n\n";
 		}
 		// Strips excess leading and trailing whitespace

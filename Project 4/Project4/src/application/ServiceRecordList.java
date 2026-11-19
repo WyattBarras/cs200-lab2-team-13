@@ -45,7 +45,7 @@ public class ServiceRecordList {
 	@Override
 	// Same as toString() in MemberList, ProviderList
 	public String toString() {
-		String servText = "Service Records: \n";
+		String servText = "";
 		for (ServiceRecord s: servRecordList) {
 			servText += s.toString();
 		}

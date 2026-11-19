@@ -68,7 +68,7 @@ public class ServiceRecord {
 	@Override
 	// basic toString() for writing to files
 	public String toString() {
-		return curDateTime + "\n" + serviceDateTime + "\n" + provNum + "\n" + memNum + "\n" + servCode + "\n" + comments + "\n";
+		return curDateTime + "\n" + serviceDateTime + "\n" + provNum + " " + memNum + "\n" + servCode + "\n" + comments + "\n";
 	}
 	
 	

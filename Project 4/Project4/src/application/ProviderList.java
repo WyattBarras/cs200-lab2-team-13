@@ -9,6 +9,14 @@ public class ProviderList {
 		this.providerList = new ArrayList<Provider>();
 	}
 	
+	public int size() {
+		return this.providerList.size();
+	}
+	
+	public ArrayList<Provider> getProviderList() {	
+		return this.providerList;
+	}
+	
 	public Provider getProvider(int idNum) {
 		for(Provider x:this.providerList) {
 			if(x.getNumber() == idNum) {
@@ -18,6 +26,16 @@ public class ProviderList {
 		System.out.println("Error: Provider not found in List. Defaulting to empty Proivder.");
 		Provider val = new Provider();
 		return val;
+	}
+	
+	public String getProviderName(int provNum) {
+		String name = "";
+		for (Provider p : providerList) {
+			if(p.getNumber() == provNum) {
+				name = p.getName();
+			}
+		}
+		return name;
 	}
 	
 	public void addProvider(int number, String name, String streetAddress, String city, String state, int zipCode, double billAmount) {

@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OperatingMenu {
@@ -24,7 +25,8 @@ public class OperatingMenu {
 			menuText += "   (6) Update Provider\n";
 			menuText += "   (7) Run Accounting Report\n";
 			menuText += "   (8) Run Manager Report\n";
-			menuText += "   (9) Quit\n";
+			menuText += "   (9) Run Provider Report\n";
+			menuText += "   (0) Quit\n";
 		} else if (this.role == 2) {
 			menuText += "Hello Operator " + this.opID + "!\n";
 			menuText += "  Available Functions: \n";
@@ -34,11 +36,13 @@ public class OperatingMenu {
 			menuText += "   (4) Add Provider\n";
 			menuText += "   (5) Delete Provider\n";
 			menuText += "   (6) Update Provider\n";
+			menuText += "   (7) Run Member Report\n";
+			menuText += "   (8) Run Provider Report\n";
 			menuText += "   (9) Quit\n";
 		} else if (this.role == 3) {
 			menuText += ("Hello Provider " + this.opID + "!\n");
 			menuText += "  Available Functions: \n";
-			menuText += "   (1) Write Service Record";
+			menuText += "   (1) Write Service Record\n";
 			menuText += "   (9) Quit\n";
 		}
 	}
@@ -161,11 +165,13 @@ public class OperatingMenu {
 		String servDateTime = servScan.nextLine();
 		
 		int provNum = idNum;
+		System.out.println("Member Number: ");
 		int memNum = Integer.parseInt(servScan.nextLine().trim());
 		if (memList.getMember(memNum) == null) {
 			return;
 		}
 		
+		System.out.println("Service Code: ");
 		int servCode = Integer.parseInt(servScan.nextLine().trim());
 		Service a = provDir.getService(servCode);
 		
@@ -184,5 +190,68 @@ public class OperatingMenu {
 		String comments = servScan.nextLine();
 		
 		servRecordList.addServiceRecord(curDateTime, servDateTime, provNum, memNum, servCode, comments);
+	}
+	
+	public void runAccReport(ServiceRecordList servRecordList, ProviderList provList, ProviderDirectory provDir) {
+		AccountingReport.runAccountingReport(servRecordList, provList, provDir);
+	}
+	
+	public void runMemberReports(ServiceRecordList servRecordList, MemberList memList, ProviderDirectory provDir, ProviderList provList) {
+		ArrayList<String> memReports = new ArrayList<String>(memList.size());
+		ArrayList<Integer> memNums = new ArrayList<Integer>(memList.size());
+		int index = 0;
+		
+		for (Member m: memList.getMemberList()) {
+			memNums.set(index, m.getNumber());
+			String heading = m.getNumber() + "\n" + m.getName() + "\n" + m.getStreetAddress() + "\n" + m.getCity()
+							 + m.getState() + " " + m.getZipCode() + "\n";
+			memReports.set(index, heading);
+			index++;
+		}
+		
+		for (ServiceRecord s: servRecordList.getRecords()) {
+			for (index = 0; index < memNums.size(); index++) {
+				if (s.getMemNum() == memNums.get(index)) {
+					String newAdd = memReports.get(index) + "\n   " + s.getServiceDateTime() + "\n   " + 
+									provList.getProviderName(s.getProvNum()) + provDir.getServiceName(s.getServCode());
+					memReports.set(index, newAdd);
+				}
+			}
+		}
+		
+		index = 0;
+		for (String s: memReports) {
+			AccountingReport.writeFile(memNums.get(index) + ".txt", s);
+			index++;
+		}
+	}
+	
+	public void runProviderReports(ServiceRecordList servRecordList, ProviderList provList, ProviderDirectory provDir) {
+		ArrayList<String> provReports = new ArrayList<String>(provList.size());
+		ArrayList<Integer> provNums = new ArrayList<Integer>(provList.size());
+		int index = 0;
+		
+		for (Provider p: provList.getProviderList()) {
+			provNums.set(index, p.getNumber());
+			String heading = p.getNumber() + "\n" + p.getName() + "\n" + p.getStreetAddress() + "\n" + p.getCity()
+							 + p.getState() + " " + p.getZipCode() + "\n";
+			provReports.set(index, heading);
+			index++;
+		}
+		
+		for (ServiceRecord s: servRecordList.getRecords()) {
+			for (index = 0; index < provNums.size(); index++) {
+				if (s.getProvNum() == provNums.get(index)) {
+					String newAdd = provReports.get(index) + "\n" + s.toString();
+					provReports.set(index, newAdd);
+				}
+			}
+		}
+		
+		index = 0;
+		for (String s: memReports) {
+			AccountingReport.writeFile(memNums.get(index) + ".txt", s);
+			index++;
+		}
 	}
 }

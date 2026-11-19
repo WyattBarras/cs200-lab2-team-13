@@ -9,6 +9,14 @@ public class MemberList {
 		this.memberList = new ArrayList<Member>();
 	}
 	
+	public int size() {
+		return this.memberList.size();
+	}
+	
+	public ArrayList<Member> getMemberList() {	
+		return this.memberList;
+	}
+	
 	public Member getMember(int idNum) {
 		for(Member x:this.memberList) {
 			if(x.getNumber() == idNum) {
@@ -17,6 +25,16 @@ public class MemberList {
 		}
 		System.out.println("Member not found in member list.");
 		return null;
+	}
+	
+	public String getMemberName(int memNum) {
+		String name = "";
+		for (Member m: memberList) {
+			if (m.getNumber() == memNum) {
+				name = m.getName();
+			}
+		}
+		return name;
 	}
 	
 	public void addMember(int number, String name, String streetAddress, String city, String state, int zipCode, double accountBalance, boolean memberStatus) {
@@ -34,6 +52,7 @@ public class MemberList {
 			}
 			i++;
 		}
+		if (index == -1) { System.out.println("Member does not exist."); return; } 
 		this.memberList.remove(index);
 	}
 	

@@ -156,7 +156,7 @@ public class Terminal {
 					opMenu.updateMember(memberList, inputScan);
 					break;
 				case 4:
-					opMenu.addMember(memberList, inputScan);
+					opMenu.addProvider(providerList, inputScan);
 					break;
 				case 5:
 					opMenu.deleteProvider(providerList, inputScan);
@@ -164,7 +164,10 @@ public class Terminal {
 				case 6:
 					opMenu.updateProvider(providerList, inputScan);
 					break;
-				case 9:
+				case 7:
+					opMenu.runAccReport(servRecordList, providerList, provDir);
+					break;
+				case 0:
 					System.out.println("Exiting program...");
 					cont = false;
 					break;
@@ -187,7 +190,7 @@ public class Terminal {
 					opMenu.updateMember(memberList, inputScan);
 					break;
 				case 4:
-					opMenu.addMember(memberList, inputScan);
+					opMenu.addProvider(providerList, inputScan);
 					break;
 				case 5:
 					opMenu.deleteProvider(providerList, inputScan);
@@ -210,6 +213,10 @@ public class Terminal {
 				switch (inputScan.nextInt()) {
 				case 1:
 					opMenu.writeServiceRecord(servRecordList, memberList, provDir, inputScan, LoginID);
+					break;
+				case 9:
+					System.out.println("Exiting program...");
+					cont = false;
 					break;
 					default:
 						System.out.println("Invalid function.");

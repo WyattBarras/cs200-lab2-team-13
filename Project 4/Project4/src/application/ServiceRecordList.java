@@ -45,4 +45,8 @@ public class ServiceRecordList {
 		}
 		return servText + "\n";
 	}
+
+	public ArrayList<ServiceRecord> getRecords() {
+		return this.servRecordList;
+	}
 }

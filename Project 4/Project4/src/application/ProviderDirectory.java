@@ -28,7 +28,7 @@ public class ProviderDirectory {
 		// empty constructor initializes serviceArray with one empty Service object
 		this.curArraySize = 1;
 		this.curServices = 0;
-		this.serviceArray[0] = new Service();
+		this.serviceArray = new Service[0];
 	}
 	
 	public void resizeArray(int newArraySize) {
@@ -50,6 +50,16 @@ public class ProviderDirectory {
 			}
 		}
 		return null;
+	}
+	
+	public String getServiceName(int servCode) {
+		String name = "";
+		for (Service s: serviceArray) {
+			if (servCode == s.getServiceCode()) {
+				name = s.getServiceName();
+			}
+		}
+		return name;
 	}
 	
 	public void updateService(boolean nameChange, String servName, int servCode, double servFee, String servDesc) {

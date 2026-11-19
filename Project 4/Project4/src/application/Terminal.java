@@ -1,7 +1,9 @@
 package application;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -108,12 +110,17 @@ public class Terminal {
 		return provDir;
 	}
 	
+	public static void writeFile(String filename, String contents) {
+		try (BufferedWriter out = new BufferedWriter(new FileWriter(filename))) {
+			out.write(contents);
+			System.out.println("Wrote " + filename);
+		} catch (IOException e) {
+			System.out.println("Could not write " + filename);
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String[] args) {
-		/* TODO: 
-		 *  - Add write to files
-		 * 	- Add terminal functions, permissions determined by role
-		 */
 		Scanner inputScan = new Scanner(System.in);
 		
 		LoginMenu loginMenu = new LoginMenu();
@@ -167,7 +174,10 @@ public class Terminal {
 				case 7:
 					opMenu.runAccReport(servRecordList, providerList, provDir);
 					break;
-				case 0:
+				case 8:
+					opMenu.runProviderReports(servRecordList, memberList, providerList, provDir);
+					break;
+				case 9:
 					System.out.println("Exiting program...");
 					cont = false;
 					break;
@@ -198,6 +208,12 @@ public class Terminal {
 				case 6:
 					opMenu.updateProvider(providerList, inputScan);
 					break;
+				case 7:
+					opMenu.runMemberReports(servRecordList, memberList, provDir, providerList);
+					break;
+				case 8:
+					opMenu.runProviderReports(servRecordList, memberList, providerList, provDir);
+					break;
 				case 9:
 					System.out.println("Exiting program...");
 					cont = false;
@@ -224,7 +240,11 @@ public class Terminal {
 				}
 			}
 		}
-		System.out.println(memberList.toString());
+		
+		writeFile(filepaths[0], memberList.toString());
+		writeFile(filepaths[1], providerList.toString());
+		writeFile(filepaths[2], provDir.toString());
+
 		inputScan.close();
 	}
 }

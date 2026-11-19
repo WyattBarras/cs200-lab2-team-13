@@ -2,9 +2,9 @@
 New Orleans Saints
 1500 Sugar Bowl Dr
 New Orleans
-LA 70112 0.00
+LA 70112 0.0
 137180
 Los Angeles Chargers
 1001 S. Stadium Dr
 Inglewood
-CA 90301 250.00
+CA 90301 250.0

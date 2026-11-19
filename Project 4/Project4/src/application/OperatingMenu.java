@@ -24,9 +24,8 @@ public class OperatingMenu {
 			menuText += "   (5) Delete Provider\n";
 			menuText += "   (6) Update Provider\n";
 			menuText += "   (7) Run Accounting Report\n";
-			menuText += "   (8) Run Manager Report\n";
-			menuText += "   (9) Run Provider Report\n";
-			menuText += "   (0) Quit\n";
+			menuText += "   (8) Run Provider Report\n";
+			menuText += "   (9) Quit\n";
 		} else if (this.role == 2) {
 			menuText += "Hello Operator " + this.opID + "!\n";
 			menuText += "  Available Functions: \n";
@@ -196,7 +195,7 @@ public class OperatingMenu {
 		AccountingReport.runAccountingReport(servRecordList, provList, provDir);
 	}
 	
-	public void runMemberReports(ServiceRecordList servRecordList, MemberList memList, ProviderDirectory provDir, ProviderList provList) {
+	public ArrayList<String> runMemberReports(ServiceRecordList servRecordList, MemberList memList, ProviderDirectory provDir, ProviderList provList) {
 		ArrayList<String> memReports = new ArrayList<String>(memList.size());
 		ArrayList<Integer> memNums = new ArrayList<Integer>(memList.size());
 		int index = 0;
@@ -213,20 +212,17 @@ public class OperatingMenu {
 			for (index = 0; index < memNums.size(); index++) {
 				if (s.getMemNum() == memNums.get(index)) {
 					String newAdd = memReports.get(index) + "\n   " + s.getServiceDateTime() + "\n   " + 
-									provList.getProviderName(s.getProvNum()) + provDir.getServiceName(s.getServCode());
+									provList.getProvider(s.getProvNum()).getName() + provDir.getService(s.getServCode()).getServiceName();
 					memReports.set(index, newAdd);
 				}
 			}
 		}
 		
-		index = 0;
-		for (String s: memReports) {
-			AccountingReport.writeFile(memNums.get(index) + ".txt", s);
-			index++;
-		}
+		return memReports;
 	}
 	
-	public void runProviderReports(ServiceRecordList servRecordList, ProviderList provList, ProviderDirectory provDir) {
+	public ArrayList<String> runProviderReports(ServiceRecordList servRecordList, MemberList memList, ProviderList provList, ProviderDirectory provDir) {
+		
 		ArrayList<String> provReports = new ArrayList<String>(provList.size());
 		ArrayList<Integer> provNums = new ArrayList<Integer>(provList.size());
 		int index = 0;
@@ -242,16 +238,14 @@ public class OperatingMenu {
 		for (ServiceRecord s: servRecordList.getRecords()) {
 			for (index = 0; index < provNums.size(); index++) {
 				if (s.getProvNum() == provNums.get(index)) {
-					String newAdd = provReports.get(index) + "\n" + s.toString();
+					String newAdd = provReports.get(index) + "\n" + s.getServiceDateTime() + "\n" + s.getCurDateTime()
+									+ memList.getMemberName(s.getMemNum()) + "\n" + s.getMemNum() + "\n" + s.getServCode()
+									+ "\n" + provDir.getService(s.getServCode()).getServiceFee() +"\n";
 					provReports.set(index, newAdd);
 				}
 			}
 		}
 		
-		index = 0;
-		for (String s: memReports) {
-			AccountingReport.writeFile(memNums.get(index) + ".txt", s);
-			index++;
-		}
+		return provReports;
 	}
 }

@@ -108,7 +108,7 @@ public class ProviderDirectory {
 		for (Service s: serviceArray) {
 			servString += s.toString() + "\n";
 		}
-		return "Provider Directory: \n\n" + servString + "\n\ncurArraySize=" + curArraySize + ", curServices=" + curServices + "\n";
+		return servString;
 	}
 	
 	public void exportProviderDirectory() {

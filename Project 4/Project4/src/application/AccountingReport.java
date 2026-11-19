@@ -59,7 +59,7 @@ public class AccountingReport {
 		writeFile("Accounting_Report_" + today + ".txt", report);
 	}
 
-	public static void writeFile(String filename, String contents) {
+	private static void writeFile(String filename, String contents) {
 		try (BufferedWriter out = new BufferedWriter(new FileWriter(filename))) {
 			out.write(contents);
 			System.out.println("Wrote " + filename);

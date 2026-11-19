@@ -4,9 +4,9 @@ Massage Session
 A one-hour appointment at a local massage parlor
 Dietitian Appointment (Initial)
 598470
-125.00
+125.0
 Initial appointment with dietitian, covering health history, diet, and lifestyle
 Dietitian Appointment (Regular)
 598471
-75.00
+75.0
 Follow-up appointment with dietitian

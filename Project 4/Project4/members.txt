@@ -1,23 +1,25 @@
-124466 
+124466
 Wyatt Barras
 1831 University Station
 Tuscaloosa
-AL 35487 120.00 false
-
+AL 35487 120.0 false
 920519
 Drew Brees
 1500 Sugar Bowl Dr.
 New Orleans
-LA 70112 0.00 true
-
+LA 70112 0.0 true
 120615
 Marques Colston
 1500 Sugar Bowl Dr.
 New Orleans
-LA 70112 0.00 true
-
+LA 70112 0.0 true
 131623
 Michael Thomas Jr.
 1500 Sugar Bowl Dr.
 New Orleans
 LA 70112 55.75 false
+234432
+Colby Tooson
+745 Hackberry Ln
+Tuscaloosa
+AL 35487 0.0 true

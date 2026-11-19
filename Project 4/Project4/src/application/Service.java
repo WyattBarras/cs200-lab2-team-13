@@ -54,8 +54,6 @@ public class Service {
 
 	@Override
 	public String toString() {
-		if (this.serviceName == "null") {return "Empty slot\n";}
-		
 		return serviceName + "\n" + serviceCode + "\n" + serviceFee + "\n" + serviceDesc;
 	}
 }

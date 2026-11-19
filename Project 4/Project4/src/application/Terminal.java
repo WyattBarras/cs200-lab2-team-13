@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
@@ -46,7 +47,7 @@ public class Terminal {
 	public static ProviderList readProvidersFromFile(String filepath) {
 		File providers = new File(filepath);
 		if (!providers.exists()) {
-			System.out.println("Members file does not exist. Exiting program");
+			System.out.println("Providers file does not exist. Exiting program");
 			System.exit(404);
 		}
 		
@@ -77,7 +78,7 @@ public class Terminal {
 	public static ProviderDirectory readProvDirFromFile(String filepath) {
 		File providerDirectory = new File(filepath);
 		if (!providerDirectory.exists()) {
-			System.out.println("Members file does not exist. Exiting program");
+			System.out.println("Services file does not exist. Exiting program");
 			System.exit(404);
 		}
 		
@@ -152,6 +153,7 @@ public class Terminal {
 		if (role == 1) {
 			while (cont) {
 				opMenu.displayMenu();
+				System.out.print(" > ");
 				switch (inputScan.nextInt()){
 				case 1:
 					opMenu.addMember(memberList, inputScan);
@@ -175,7 +177,8 @@ public class Terminal {
 					opMenu.runAccReport(servRecordList, providerList, provDir);
 					break;
 				case 8:
-					opMenu.runProviderReports(servRecordList, memberList, providerList, provDir);
+					ArrayList<String> provReports = opMenu.runProviderReports(servRecordList, memberList, providerList, provDir);
+					writeFile("provider_reports.txt", provReports.toString());
 					break;
 				case 9:
 					System.out.println("Exiting program...");
@@ -185,10 +188,12 @@ public class Terminal {
 						System.out.println("Invalid function.");
 						break;
 				}
+				System.out.println();
 			}
 		} else if (role == 2) {
 			while (cont) {
 				opMenu.displayMenu();
+				System.out.print(" > ");
 				switch (inputScan.nextInt()){
 				case 1:
 					opMenu.addMember(memberList, inputScan);
@@ -209,10 +214,12 @@ public class Terminal {
 					opMenu.updateProvider(providerList, inputScan);
 					break;
 				case 7:
-					opMenu.runMemberReports(servRecordList, memberList, provDir, providerList);
+					ArrayList<String> memReports = opMenu.runMemberReports(servRecordList, memberList, provDir, providerList);
+					writeFile("member_reports.txt", memReports.toString());
 					break;
 				case 8:
-					opMenu.runProviderReports(servRecordList, memberList, providerList, provDir);
+					ArrayList<String> provReports = opMenu.runProviderReports(servRecordList, memberList, providerList, provDir);
+					writeFile("provider_reports.txt", provReports.toString());
 					break;
 				case 9:
 					System.out.println("Exiting program...");
@@ -222,13 +229,27 @@ public class Terminal {
 						System.out.println("Invalid function.");
 						break;
 				}
+				System.out.println();
 			}
 		} else if (role == 3) {
 			while (cont) {
 				opMenu.displayMenu();
+				System.out.print(" > ");
 				switch (inputScan.nextInt()) {
 				case 1:
 					opMenu.writeServiceRecord(servRecordList, memberList, provDir, inputScan, LoginID);
+					break;
+				case 2:
+					opMenu.displayProviderDirectory(provDir);
+					break;
+				case 3:
+					opMenu.addService(provDir, inputScan);
+					break;
+				case 4:
+					opMenu.deleteService(provDir, inputScan);
+					break;
+				case 5:
+					opMenu.updateService(provDir, inputScan);
 					break;
 				case 9:
 					System.out.println("Exiting program...");
@@ -238,6 +259,7 @@ public class Terminal {
 						System.out.println("Invalid function.");
 						break;
 				}
+				System.out.println();
 			}
 		}
 		
@@ -245,6 +267,8 @@ public class Terminal {
 		writeFile(filepaths[1], providerList.toString());
 		writeFile(filepaths[2], provDir.toString());
 
+		System.out.println("Thank you for using ChocAn Services!");
+		System.out.println("Have a great day!");
 		inputScan.close();
 	}
 }

@@ -42,6 +42,10 @@ public class OperatingMenu {
 			menuText += ("Hello Provider " + this.opID + "!\n");
 			menuText += "  Available Functions: \n";
 			menuText += "   (1) Write Service Record\n";
+			menuText += "   (2) Display Provider Directory\n";
+			menuText += "   (3) Add Service\n";
+			menuText += "   (4) Delete Service\n";
+			menuText += "   (5) Update Service\n";
 			menuText += "   (9) Quit\n";
 		}
 	}
@@ -98,7 +102,7 @@ public class OperatingMenu {
 		int memZip = Integer.parseInt(updateScan.nextLine().trim());
 		System.out.print("New Member Balance > ");
 		double memBal = Double.parseDouble(updateScan.nextLine().trim());
-		System.out.print("New Member Status (true or false) > ");
+		System.out.print("Member Status (must be true or false) > ");
 		boolean memStatus = Boolean.parseBoolean(updateScan.nextLine().trim());
 
 		memList.updateMemberRecords(memNumber, memName, memAddr, memCity, memState, memZip, memBal, memStatus);
@@ -247,5 +251,56 @@ public class OperatingMenu {
 		}
 		
 		return provReports;
+	}
+	
+	public void displayProviderDirectory(ProviderDirectory provDir) {
+		System.out.println("\n\n" + provDir.toString() + "\n\n");
+	}
+	
+	public void addService(ProviderDirectory provDir, Scanner servScan) {
+		servScan.nextLine();
+		
+		System.out.print("New Service Name > ");
+		String servName = servScan.nextLine();
+		System.out.print("New Service Code > ");
+		int servCode = Integer.parseInt(servScan.nextLine().trim());
+		System.out.print("New Service Fee > ");
+		double servFee = Double.parseDouble(servScan.nextLine().trim());
+		System.out.print("New Service Description > ");
+		String servDesc = servScan.nextLine();
+		
+		provDir.addService(servName, servCode, servFee, servDesc);
+	}
+	
+	public void deleteService(ProviderDirectory provDir, Scanner scan) {
+		scan.nextLine();
+		
+		System.out.print("Service Code to delete > ");
+		int delCode = Integer.parseInt(scan.nextLine());
+		
+		provDir.deleteService(delCode);
+	}
+	
+	public void updateService(ProviderDirectory provDir, Scanner updateScan) {
+		updateScan.nextLine();
+		
+		System.out.print("Is the service code being changed (true/false)? : ");
+		boolean codeChange = Boolean.parseBoolean(updateScan.nextLine().trim());
+		if (codeChange) 
+			System.out.print("Current Service Code > ");
+		else 
+			System.out.print("Service Code >");
+	
+		int servCode = Integer.parseInt(updateScan.nextLine().trim());
+		
+		System.out.println("Enter -1 if no change");
+		System.out.print("New Service Name > ");
+		String servName = updateScan.nextLine();
+		System.out.print("New Service Fee > ");
+		double servFee = Double.parseDouble(updateScan.nextLine().trim());
+		System.out.println("New Service Description > ");
+		String servDesc = updateScan.nextLine();
+		
+		provDir.updateService(codeChange, servName, servCode, servFee, servDesc, updateScan);
 	}
 }

@@ -3,43 +3,25 @@ package application;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class ProviderDirectory {
-	private Service[] serviceArray;
-	private int curArraySize;
-	private int curServices;
+	private ArrayList<Service> serviceArray;
 
 	public ProviderDirectory(int arraySize) {
-		this.curArraySize = arraySize;
-		this.curServices = 0;
 		/* initializes array with empty Service objects 
-		 * later search methods use "null" name of empty objects to search for first empty object
-		 * or to help determine if array is full */
-		Service[] newArray = new Service[arraySize];
-		for(int i = 0; i < arraySize; i++) {
-			newArray[i] = new Service();
-		}
+		 * later search methods use "null" name of empty objects to search for first empty object */
+		ArrayList<Service> newArray = new ArrayList<Service>(Collections.nCopies(arraySize, new Service()));
 		this.serviceArray = newArray;
 	}
 	
 	public ProviderDirectory() {
 		// empty constructor initializes serviceArray with one empty Service object
-		this.curArraySize = 1;
-		this.curServices = 0;
-		this.serviceArray = new Service[0];
-	}
-	
-	public void resizeArray(int newArraySize) {
-		// copies serviceArray to new array of specified size
-		Service[] newArray = Arrays.copyOf(this.serviceArray, newArraySize);
-		// initializes empty Service objects in added slots of new array so search methods still work
-		for(int i = this.curArraySize; i < newArraySize; i++) {
-			newArray[i] = new Service();
-		}
-		this.curArraySize = newArraySize;
-		this.serviceArray = newArray;
+		this.serviceArray = new ArrayList<Service>(1);
+		Service s = new Service();
+		this.serviceArray.set(0, s);
 	}
 	
 	public Service getService(int servCode) {
@@ -62,19 +44,35 @@ public class ProviderDirectory {
 		return name;
 	}
 	
-	public void updateService(boolean nameChange, String servName, int servCode, double servFee, String servDesc) {
+	public void addService(String servName, int servCode, double servFee, String servDesc) {
+		Service newServ = new Service(servName, servCode, servFee, servDesc);
+		int index = 0;
+		boolean found = false;
+		for (Service look: serviceArray) {
+			// Look through serviceArray for first element with "null" serviceName, replace with input data
+			if (look.getServiceName() == "null") {
+				this.serviceArray.set(index, newServ);
+				found = true;
+				break;
+			}
+			index++;
+		}
+		if (!found) {
+			this.serviceArray.add(newServ);
+		}
+	}
+	
+	public void updateService(boolean codeChange, String servName, int servCode, double servFee, String servDesc, Scanner inCode) {
 		// Search for service by name
 		for(Service look: serviceArray) {
-			if (look.getServiceName() == servName) {
+			if (look.getServiceCode() == servCode) {
 				// If service name change required, ask for new name
-				if (nameChange) {
-					Scanner inName = new Scanner(System.in);
-					System.out.printf("Input new name > ");
-					look.setServiceName(inName.nextLine());
-					inName.close();
+				if (codeChange) {
+					System.out.printf("Input new code > ");
+					look.setServiceCode(Integer.parseInt(inCode.nextLine()));
 				}
 				// Updates elements of designated service, then breaks out of for loop
-				look.setServiceCode(servCode);
+				look.setServiceName(servName);
 				look.setServiceFee(servFee);
 				look.setServiceDesc(servDesc);
 				break;
@@ -82,24 +80,14 @@ public class ProviderDirectory {
 		}
 	}
 	
-	public void addService(String servName, int servCode, double servFee, String servDesc) {
-		if (this.curArraySize == this.curServices) {
-			// If array full, expand array by factor of 2
-			this.resizeArray(this.curArraySize * 2);
-		}
-		
-		for (Service look: serviceArray) {
-			// Look through serviceArray for first element with "null" serviceName, replace with input data
-			if (look.getServiceName() == "null") {
-				look.setServiceName(servName);
-				look.setServiceCode(servCode);
-				look.setServiceFee(servFee);
-				look.setServiceDesc(servDesc);
-				break;
+	public void deleteService(int servCode) {
+		int index = 0;
+		for (Service look: this.serviceArray) {
+			if (look.getServiceCode() == servCode) {
+				this.serviceArray.remove(index);
 			}
+			index++;
 		}
-		// increment curServices
-		this.curServices++;
 	}
 
 	@Override

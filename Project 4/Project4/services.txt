@@ -10,3 +10,7 @@ Dietitian Appointment (Regular)
 598471
 75.0
 Follow-up appointment with dietitian
+Aerobics Exercise Session
+883948
+69.99
+A one-hour individual aerobics exercise session

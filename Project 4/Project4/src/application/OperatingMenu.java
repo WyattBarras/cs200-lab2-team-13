@@ -84,17 +84,22 @@ public class OperatingMenu {
 		memList.addMember(memNumber, memName, memAddr, memCity, memState, memZip, memBal, memStatus);
 	}
 
-	// removes Member from memList using their number
+	// removes Member from memList after prompting user for member number to delete
 	public void deleteMember(MemberList memList, Scanner scan) {
+		// clears newline from nextInt()
 		scan.nextLine();
+		
 		System.out.print("Member ID to delete > ");
 		int idNum = Integer.parseInt(scan.nextLine().trim());
 		memList.removeMember(idNum);
 	}
-
+	
+	// updates Member in memList based on user input
 	public void updateMember(MemberList memList, Scanner updateScan) {
+		// clears newline from nextInt()
 		updateScan.nextLine();
-		
+
+		// Repeatedly prompts user for input to update Member with given member number (-1 for no change)
 		System.out.println("Enter -1 if no change");
 		System.out.print("Member Number > ");
 		int memNumber = Integer.parseInt(updateScan.nextLine().trim());
@@ -113,10 +118,14 @@ public class OperatingMenu {
 		System.out.print("Member Status (must be true or false) > ");
 		boolean memStatus = Boolean.parseBoolean(updateScan.nextLine().trim());
 
+		// Updates Member in memList using given info
 		memList.updateMemberRecords(memNumber, memName, memAddr, memCity, memState, memZip, memBal, memStatus);
 	}
 	
+	
+	// Same as addMember, but for provList
 	public void addProvider(ProviderList provList, Scanner provScan) {
+		// clears newline from nextInt()
 		provScan.nextLine();
 		
 		System.out.print("New Provider Number > ");
@@ -137,14 +146,19 @@ public class OperatingMenu {
 		provList.addProvider(provNumber, provName, provAddr, provCity, provState, provZip, provBill);
 	}
 	
+	// Same as deleteMember, for provList
 	public void deleteProvider(ProviderList provList, Scanner scan) {
+		// clears newline from nextInt()
 		scan.nextLine();
+		
 		System.out.print("Provider ID to delete > ");
 		int idNum = Integer.parseInt(scan.nextLine().trim());
 		provList.removeProvider(idNum);
 	}
 	
+	// Same as updateMember, for provList
 	public void updateProvider(ProviderList provList, Scanner provScan) {
+		// clears newline from nextInt()
 		provScan.nextLine();
 		
 		System.out.println("Enter -1 if no change");
@@ -166,26 +180,35 @@ public class OperatingMenu {
 		provList.updateProviderRecords(provNumber, provName, provAddr, provCity, provState, provZip, provBill);
 	}
 	
+	// Adds ServiceRecord to servRecordList from user input, aborts if memNum
 	public void writeServiceRecord(ServiceRecordList servRecordList, MemberList memList, ProviderDirectory provDir, 
 			                       Scanner servScan, int idNum) {
+		// clears newline from nextInt()
 		servScan.nextLine();
 		
+		// prompts for and gets user input for dates/times
 		System.out.print("Current Date & Time: ");
 		String curDateTime = servScan.nextLine();
 		System.out.println("Service Date & Time: ");
 		String servDateTime = servScan.nextLine();
 		
+		
 		int provNum = idNum;
 		System.out.println("Member Number: ");
+		// Checks if memNum is in memList, if not prints error message and returns
 		int memNum = Integer.parseInt(servScan.nextLine().trim());
 		if (memList.getMember(memNum) == null) {
+			System.out.println("Member not in list. Exiting to menu...");
 			return;
 		}
 		
+		// Prompt for and get user input for service code
 		System.out.println("Service Code: ");
 		int servCode = Integer.parseInt(servScan.nextLine().trim());
 		Service a = provDir.getService(servCode);
 		
+		// If service in provider directory, prompt user for confirmation
+		// If no, display message and return;
 		if (a != null) {
 			System.out.println(a.getServiceCode());
 			System.out.println(a.getServiceName());
@@ -194,24 +217,32 @@ public class OperatingMenu {
 			String cont = servScan.nextLine();
 			if (cont.contains("n")) { System.out.println("Exiting to menu..."); return; }
 		} else {
+			// If service does not exist, print error message and return
 			System.out.println("Service does not exist.");
 			return;
 		}
 		
+		// If success, prompt for and get user input for comments
+		System.out.print("Comments: ");
 		String comments = servScan.nextLine();
 		
+		// Add ServiceRecord to end of servRecordList from given info
 		servRecordList.addServiceRecord(curDateTime, servDateTime, provNum, memNum, servCode, comments);
 	}
 	
 	public void runAccReport(ServiceRecordList servRecordList, ProviderList provList, ProviderDirectory provDir) {
+		// Run accounting report (self-contained in AccountingReport class)
 		AccountingReport.runAccountingReport(servRecordList, provList, provDir);
 	}
 	
+	// Returns single string containing all member reports
 	public String runMemberReports(ServiceRecordList servRecordList, MemberList memList, ProviderDirectory provDir, ProviderList provList) {
+		// Allocate ArrayLists for needed info
 		ArrayList<String> memReports = new ArrayList<String>(Collections.nCopies(memList.size(), ""));
 		ArrayList<Integer> memNums = new ArrayList<Integer>(Collections.nCopies(memList.size(), 0));
 		int index = 0;
 		
+		// Populates memReports with heading strings for each member in memList
 		for (Member m: memList.getMemberList()) {
 			memNums.set(index, m.getNumber());
 			String heading = m.getNumber() + "\n" + m.getName() + "\n" + m.getStreetAddress() + "\n" + m.getCity() + " "
@@ -220,6 +251,7 @@ public class OperatingMenu {
 			index++;
 		}
 		
+		// Appends the service record info to the relevant member report string
 		for (ServiceRecord s: servRecordList.getRecords()) {
 			for (index = 0; index < memNums.size(); index++) {
 				if (s.getMemNum() == memNums.get(index)) {
@@ -230,6 +262,7 @@ public class OperatingMenu {
 			}
 		}
 		
+		// Compiles the member report strings into single string for easy file writing
 		String finalReport = "";
 		for (String str: memReports) {
 			finalReport += str + "\n";
@@ -238,6 +271,7 @@ public class OperatingMenu {
 		return finalReport;
 	}
 	
+	// Same as above, for provider reports instead of member reports
 	public String runProviderReports(ServiceRecordList servRecordList, MemberList memList, ProviderList provList, ProviderDirectory provDir) {
 		
 		ArrayList<String> provReports = new ArrayList<String>(Collections.nCopies(provList.size(), ""));
@@ -271,10 +305,12 @@ public class OperatingMenu {
 		return reportFinal;
 	}
 	
+	// Displays provider directory in more readable format
 	public void displayProviderDirectory(ProviderDirectory provDir) {
 		System.out.println("\n\n" + provDir.toStringDisplay() + "\n\n");
 	}
 	
+	// Adds service to provider directory using same methods as addMember, addProvider
 	public void addService(ProviderDirectory provDir, Scanner servScan) {
 		servScan.nextLine();
 		
@@ -290,6 +326,7 @@ public class OperatingMenu {
 		provDir.addService(servName, servCode, servFee, servDesc);
 	}
 	
+	// Deletes service from provider directory using same methods as deleteMember, deleteProvider
 	public void deleteService(ProviderDirectory provDir, Scanner scan) {
 		scan.nextLine();
 		
@@ -299,11 +336,14 @@ public class OperatingMenu {
 		provDir.deleteService(delCode);
 	}
 	
+	// Updates service in provider directory using same methods as updateMember, updateProvider
 	public void updateService(ProviderDirectory provDir, Scanner updateScan) {
 		updateScan.nextLine();
 		
+		// Prompts for and checks whether service code is being changed
 		System.out.print("Is the service code being changed (true/false)? : ");
 		boolean codeChange = Boolean.parseBoolean(updateScan.nextLine().trim());
+		// Slight change to output based on above answer
 		if (codeChange) 
 			System.out.print("Current Service Code > ");
 		else 
@@ -319,6 +359,7 @@ public class OperatingMenu {
 		System.out.println("New Service Description > ");
 		String servDesc = updateScan.nextLine();
 		
+		// If service code is being changed, provDir.updateService() prompts for code change in execution
 		provDir.updateService(codeChange, servName, servCode, servFee, servDesc, updateScan);
 	}
 }

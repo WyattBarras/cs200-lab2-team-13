@@ -7,22 +7,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class Terminal {
 
+	// Reads Members from file into MemberList object
 	public static MemberList readMembersFromFile(String filepath) {
 		File members = new File(filepath);
+		// If file does not exist, exit with file not found code and print error message
 		if (!members.exists()) {
 			System.out.println("Members file does not exist. Exiting program");
 			System.exit(404);
 		}
 		
+		// Create new MemberList
 		MemberList memberList = new MemberList();
+		// try with resources auto-closes Scanner when finished
 		try(Scanner scanMem = new Scanner(members)){
-			
+			// While file still has data, read member info, adding each member to memberList as info is scanned
 			while (scanMem.hasNext()) {
 				int memNum = Integer.parseInt(scanMem.next());
 				scanMem.nextLine();
@@ -44,6 +47,7 @@ public class Terminal {
 		return memberList;
 	}
 	
+	// Same as above, but reading Providers from file into ProviderList
 	public static ProviderList readProvidersFromFile(String filepath) {
 		File providers = new File(filepath);
 		if (!providers.exists()) {
@@ -75,6 +79,7 @@ public class Terminal {
 		
 	}
 	
+	// Same as above, with some tweaks for array sizing
 	public static ProviderDirectory readProvDirFromFile(String filepath) {
 		File providerDirectory = new File(filepath);
 		if (!providerDirectory.exists()) {
@@ -82,19 +87,22 @@ public class Terminal {
 			System.exit(404);
 		}
 		
+		// Gets Path object for filepath
 		Path path = Path.of(filepath);
 		long count = 0;
+		// Stream lines from file, counting each
 		try (Stream<String> lines = Files.lines(path)) {
             count = lines.count();
         } catch (IOException e) {
             e.printStackTrace();
         }
 		
+		// Create ProviderDirectory with the exact size of the number of objects in the file
 		int size = (int) (count / 4);
 		ProviderDirectory provDir = new ProviderDirectory(size);
 		
 		try(Scanner scanDir = new Scanner(providerDirectory)){
-			
+			// Same as above: scan Services from file following set format, create Services in provDir with data
 			while (scanDir.hasNext()) {
 				String servName = scanDir.nextLine();
 				int servNum = Integer.parseInt(scanDir.nextLine());
@@ -110,6 +118,7 @@ public class Terminal {
 		return provDir;
 	}
 	
+	// Same as the above functions for Members and Providers, but for ServiceRecords
 	public static ServiceRecordList readServiceRecordsFromFile(String filepath) {
 		File servRecords = new File(filepath);
 		if (!servRecords.exists()) {
@@ -140,6 +149,7 @@ public class Terminal {
 		
 	}
 	
+	// Generic file writer using BufferedWriter to write given strings to a given file
 	public static void writeFile(String filename, String contents) {
 		try (BufferedWriter out = new BufferedWriter(new FileWriter(filename))) {
 			out.write(contents);
@@ -151,11 +161,15 @@ public class Terminal {
 	}
 	
 	public static void main(String[] args) {
+		// Scanner for *all* user input to program
 		Scanner inputScan = new Scanner(System.in);
 		
+		// Create loginMenu
 		LoginMenu loginMenu = new LoginMenu();
+		// Prompt user for login info
 		int LoginID = loginMenu.login(inputScan);
 		int role = 0;
+		// If loginID valid, role based on value of ID, if not, print error message and exit program
 		if (LoginID < 0) {
 			System.out.println("Invalid login credentials. Exiting program.");
 			System.exit(0);
@@ -167,17 +181,20 @@ public class Terminal {
 			role = 3;
 		}
 		
+		// Read all info from relevant data files
 		String[] filepaths = {"members.txt","providers.txt","services.txt","service_records.txt"};
 		MemberList memberList = readMembersFromFile(filepaths[0]);
 		ProviderList providerList = readProvidersFromFile(filepaths[1]);
 		ProviderDirectory provDir = readProvDirFromFile(filepaths[2]);
 		ServiceRecordList servRecordList = readServiceRecordsFromFile(filepaths[3]);
 		
+		// Set up operation menu using user role and id
 		OperatingMenu opMenu = new OperatingMenu(role, LoginID);
 		opMenu.generateOperatingMenu();
 		boolean cont = true;
 		
-		
+		// each role can only use certain functions
+		// Repetition allowed with while loop/boolean condition, function selection with switch statement b/c integer input
 		if (role == 1) {
 			while (cont) {
 				opMenu.displayMenu();
@@ -291,6 +308,7 @@ public class Terminal {
 			}
 		}
 		
+		// Write changed data to files
 		writeFile(filepaths[0], memberList.toString());
 		writeFile(filepaths[1], providerList.toString());
 		writeFile(filepaths[2], provDir.toString());
